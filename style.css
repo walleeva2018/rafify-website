@@ -881,6 +881,9 @@ font-size: 1rem;
 backdrop-filter: blur(20px);
 transition: all 0.3s ease;
 font-family: inherit;
+appearance: none;
+-webkit-appearance: none;
+-moz-appearance: none;
 }
 
 .form-input:focus {
@@ -891,6 +894,88 @@ box-shadow: 0 0 30px rgba(0, 212, 255, 0.2);
 
 .form-input::placeholder {
 color: var(--text-secondary);
+}
+
+/* Select dropdown styling - Fixed for all browsers and themes */
+.form-input select,
+select.form-input {
+background: var(--dark-surface) !important;
+color: var(--text-primary) !important;
+background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d4ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+background-repeat: no-repeat;
+background-position: right 1rem center;
+background-size: 1rem;
+padding-right: 3rem;
+cursor: pointer;
+border: 1px solid var(--glass-border) !important;
+-webkit-appearance: none !important;
+-moz-appearance: none !important;
+appearance: none !important;
+}
+
+/* Force dropdown options styling */
+.form-input option {
+background: var(--dark-surface) !important;
+color: var(--text-primary) !important;
+padding: 0.75rem !important;
+border: none !important;
+}
+
+/* Hover state for select */
+.form-input select:hover,
+select.form-input:hover {
+border-color: rgba(0, 212, 255, 0.5) !important;
+background: var(--dark-surface) !important;
+}
+
+/* Focus state for select */
+.form-input select:focus,
+select.form-input:focus {
+outline: none !important;
+border-color: var(--neon-blue) !important;
+box-shadow: 0 0 30px rgba(0, 212, 255, 0.2) !important;
+background: var(--dark-surface) !important;
+color: var(--text-primary) !important;
+}
+
+/* Force styling even with browser dark mode preferences */
+@media (prefers-color-scheme: light) {
+.form-input select,
+select.form-input {
+    background: var(--dark-surface) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--glass-border) !important;
+}
+
+.form-input option {
+    background: var(--dark-surface) !important;
+    color: var(--text-primary) !important;
+}
+}
+
+@media (prefers-color-scheme: dark) {
+.form-input select,
+select.form-input {
+    background: var(--dark-surface) !important;
+    color: var(--text-primary) !important;
+    border: 1px solid var(--glass-border) !important;
+}
+
+.form-input option {
+    background: var(--dark-surface) !important;
+    color: var(--text-primary) !important;
+}
+}
+
+/* WebKit specific fixes for Safari/Chrome */
+.form-input select::-webkit-dropdown-button {
+display: none !important;
+}
+
+/* Firefox specific fixes */
+.form-input select:-moz-focusring {
+color: transparent !important;
+text-shadow: 0 0 0 var(--text-primary) !important;
 }
 
 /* Footer */
