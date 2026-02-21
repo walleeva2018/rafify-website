@@ -1,0 +1,23 @@
+# Old files (before restructuring)
+script.js.backup
+style.css.backup
+
+# IDE and Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Optional: Keep old files for reference during transition
+# Uncomment to ignore:
+# script.js
+# style.css

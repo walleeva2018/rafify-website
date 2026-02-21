@@ -1,740 +1,360 @@
-// Enhanced JavaScript for Modern Interactions
 document.addEventListener('DOMContentLoaded', function() {
-    initializeScrollAnimations();
-    initializeNavbarEffects();
-    initializeMobileMenu();
-    initializeParticleSystem();
-    initializeCounterAnimations();
-    initializeFormHandling();
-    initializeAdvancedEffects();
-    initializeTeamShowcase();
-});
-
-// Team Showcase Carousel
-function initializeTeamShowcase() {
-    const teamCards = document.querySelectorAll('.team-card');
-    let currentIndex = 0;
-    
-    function showNextTeamMember() {
-        teamCards[currentIndex].classList.remove('active');
-        currentIndex = (currentIndex + 1) % teamCards.length;
-        teamCards[currentIndex].classList.add('active');
-    }
-    
-    // Auto-rotate team members every 4 seconds
-    setInterval(showNextTeamMember, 4000);
-    
-    // Manual navigation on click
-    teamCards.forEach((card, index) => {
-        card.addEventListener('click', () => {
-            teamCards[currentIndex].classList.remove('active');
-            currentIndex = index;
-            teamCards[currentIndex].classList.add('active');
-        });
-    });
-}
-
-// Scroll Animations
-function initializeScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
-        });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-}
-
-// Navbar Effects
-function initializeNavbarEffects() {
-    const navbar = document.getElementById('navbar');
-    let lastScrollY = window.scrollY;
-
-    window.addEventListener('scroll', () => {
-        const currentScrollY = window.scrollY;
-        
-        if (currentScrollY > 100) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-
-        // Hide/show navbar on scroll for desktop
-        if (window.innerWidth > 768) {
-            if (currentScrollY > lastScrollY && currentScrollY > 500) {
-                navbar.style.transform = 'translateY(-100%)';
-            } else {
-                navbar.style.transform = 'translateY(0)';
-            }
-        }
-        
-        lastScrollY = currentScrollY;
-    });
-
-    // Smooth scrolling for nav links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                const navHeight = navbar.offsetHeight;
-                const targetPosition = target.offsetTop - navHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                const navLinks = document.getElementById('navLinks');
-                const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-                navLinks.classList.remove('active');
-                mobileMenuBtn.classList.remove('active');
-            }
-        });
-    });
-}
-
-// Mobile Menu
-function initializeMobileMenu() {
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navLinks = document.getElementById('navLinks');
-    
-    mobileMenuBtn.addEventListener('click', function() {
-        this.classList.toggle('active');
-        navLinks.classList.toggle('active');
-    });
-    
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!e.target.closest('.navbar')) {
-            navLinks.classList.remove('active');
-            mobileMenuBtn.classList.remove('active');
-        }
-    });
-    
-    // Close menu on window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            navLinks.classList.remove('active');
-            mobileMenuBtn.classList.remove('active');
-        }
-    });
-}
-
-// Advanced Particle System
-function initializeParticleSystem() {
-    const particleContainer = document.body;
-    const particles = [];
-    const maxParticles = window.innerWidth < 768 ? 20 : 50; // Reduce particles on mobile
-
-    function createParticle() {
-        if (particles.length >= maxParticles) return;
-
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        
-        const size = Math.random() * 4 + 1;
-        const colors = ['#00d4ff', '#7c3aed', '#ff0080', '#00ff88'];
-        const color = colors[Math.floor(Math.random() * colors.length)];
-        
-        particle.style.cssText = `
-            width: ${size}px;
-            height: ${size}px;
-            background: ${color};
-            border-radius: 50%;
-            left: ${Math.random() * window.innerWidth}px;
-            top: ${window.innerHeight + 10}px;
-            box-shadow: 0 0 ${size * 2}px ${color};
-        `;
-
-        particleContainer.appendChild(particle);
-        particles.push(particle);
-
-        animateParticle(particle);
-    }
-
-    function animateParticle(particle) {
-        let posY = window.innerHeight + 10;
-        let posX = parseFloat(particle.style.left);
-        const speed = Math.random() * 2 + 1;
-        const drift = (Math.random() - 0.5) * 2;
-
-        function animate() {
-            posY -= speed;
-            posX += drift;
-            
-            particle.style.top = posY + 'px';
-            particle.style.left = posX + 'px';
-            particle.style.opacity = posY / window.innerHeight;
-
-            if (posY < -10 || posX < -10 || posX > window.innerWidth + 10) {
-                particle.remove();
-                const index = particles.indexOf(particle);
-                if (index > -1) particles.splice(index, 1);
-            } else {
-                requestAnimationFrame(animate);
-            }
-        }
-        animate();
-    }
-
-    // Create particles periodically (less frequent on mobile)
-    const particleInterval = window.innerWidth < 768 ? 1000 : 500;
-    setInterval(createParticle, particleInterval);
-}
-
-// Counter Animations
-function initializeCounterAnimations() {
-    const counters = document.querySelectorAll('.stat-number');
-    
-    const animateCounter = (counter) => {
-        const target = parseFloat(counter.getAttribute('data-count'));
-        const duration = 2000;
-        const step = target / (duration / 16);
-        let current = 0;
-
-        const timer = setInterval(() => {
-            current += step;
-            if (current >= target) {
-                if (target === 99.9) {
-                    counter.textContent = '99.9';
-                } else {
-                    counter.textContent = Math.floor(target).toLocaleString();
-                }
-                clearInterval(timer);
-            } else {
-                counter.textContent = Math.floor(current).toLocaleString();
-            }
-        }, 16);
-    };
-
-    const counterObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                counterObserver.unobserve(entry.target);
-            }
-        });
-    });
-
-    counters.forEach(counter => counterObserver.observe(counter));
-}
-
-// Form Handling with Your Custom API
-function initializeFormHandling() {
-    const form = document.getElementById('contactForm');
-    
-    form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        
-        const button = form.querySelector('button[type="submit"]');
-        const originalText = button.textContent;
-        
-        // Get form data
-        const formData = new FormData(form);
-        const name = formData.get('name');
-        const email = formData.get('email');
-        const phone = formData.get('phone');
-        const service = formData.get('service');
-        const message = formData.get('message');
-        
-        // Basic validation
-        if (!validateForm(form)) {
-            showNotification('Please fill in all required fields correctly.', 'error');
-            return;
-        }
-        
-        // Prepare data for your API
-        const apiData = {
-            subject: `New Contact Form Submission from ${name} - ${service || 'General Inquiry'}`,
-            content: generateEmailContent(name, email, phone, service, message)
-        };
-        
-        // Animate button
-        button.textContent = 'Sending...';
-        button.style.background = 'linear-gradient(45deg, #00ff88, #00d4ff)';
-        button.disabled = true;
-        
-        try {
-            await sendToYourAPI(apiData);
-            showNotification('Message sent successfully! 🎉 We\'ll get back to you soon.', 'success');
-            form.reset();
-            
-        } catch (error) {
-            console.error('Error sending message:', error);
-            showNotification('Failed to send message. Please try again or contact us directly.', 'error');
-        } finally {
-            button.textContent = originalText;
-            button.style.background = '';
-            button.disabled = false;
-        }
-    });
-}
-
-// Generate formatted email content
-function generateEmailContent(name, email, phone, service, message) {
-    const timestamp = new Date().toLocaleString();
-    
-    return `
-📧 NEW CONTACT FORM SUBMISSION - RAFIFY WEBSITE
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-👤 CONTACT INFORMATION:
-   • Name: ${name}
-   • Email: ${email}
-   • Phone: ${phone || 'Not provided'}
-   • Service Interest: ${service || 'General Inquiry'}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-💬 MESSAGE:
-${message}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-📅 SUBMISSION DETAILS:
-   • Timestamp: ${timestamp}
-   • Source: Rafify Website Contact Form
-   • User Agent: ${navigator.userAgent.split(')')[0]})
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-⚡ NEXT STEPS:
-1. Respond within 24 hours
-2. CC the team if needed
-3. Update CRM system
-4. Schedule follow-up if required
-
-This message was sent via the Rafify contact form.
-    `.trim();
-}
-
-// Send to your custom API
-async function sendToYourAPI(data) {
-    // Replace with your actual API endpoint
-    const API_ENDPOINT = 'https://email-server-gray.vercel.app/api/send-email'; // Update this URL
-    
-    const response = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          to: 'zubairahmedrafi37@gmail.com',
-          subject: 'New contact Application',
-          text: data.content,
-        })
-
-    });
-    
-    if (!response.ok) {
-        const errorData = await response.text();
-        throw new Error(`API Error ${response.status}: ${errorData}`);
-    }
-    
-    // Handle different response types
-    const contentType = response.headers.get('content-type');
-    if (contentType && contentType.includes('application/json')) {
-        return await response.json();
-    } else {
-        return await response.text();
-    }
-}
-
-
-
-
-
-// Form validation
-function validateForm(form) {
-    const inputs = form.querySelectorAll('input[required], textarea[required]');
-    let isValid = true;
-    
-    inputs.forEach(input => {
-        if (!input.value.trim()) {
-            isValid = false;
-            input.style.borderColor = '#ff0080';
-        } else {
-            input.style.borderColor = '';
-        }
-        
-        // Email validation
-        if (input.type === 'email' && input.value.trim()) {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(input.value)) {
-                isValid = false;
-                input.style.borderColor = '#ff0080';
-            }
-        }
-    });
-    
-    return isValid;
-}
-
-// Advanced Effects
-function initializeAdvancedEffects() {
-    // Mouse follower effect (desktop only)
-    if (window.innerWidth > 768) {
-        createMouseFollower();
-    }
-    
-    // Parallax scrolling for orbs
-    initializeParallax();
-    
-    // Interactive feature cards
-    enhanceFeatureCards();
-    
-    // Dynamic background effects (desktop only)
-    if (window.innerWidth > 768) {
-        createDynamicBackground();
-    }
-}
-
-// Mouse Follower (Desktop only)
-function createMouseFollower() {
-    const follower = document.createElement('div');
-    follower.style.cssText = `
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        background: radial-gradient(circle, rgba(0, 212, 255, 0.3), transparent);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transition: transform 0.1s ease;
-        mix-blend-mode: difference;
-    `;
-    document.body.appendChild(follower);
-
-    document.addEventListener('mousemove', (e) => {
-        follower.style.left = e.clientX - 10 + 'px';
-        follower.style.top = e.clientY - 10 + 'px';
-    });
-
-    // Expand on hover over interactive elements
-    document.querySelectorAll('a, button, .feature-card').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            follower.style.transform = 'scale(2)';
-        });
-        el.addEventListener('mouseleave', () => {
-            follower.style.transform = 'scale(1)';
-        });
-    });
-}
-
-// Parallax Effect
-function initializeParallax() {
-    window.addEventListener('scroll', throttle(() => {
-        const scrolled = window.pageYOffset;
-        
-        document.querySelectorAll('.orb').forEach((orb, index) => {
-            const speed = (index + 1) * 0.3;
-            orb.style.transform = `translateY(${scrolled * speed}px)`;
-        });
-    }, 16));
-}
-
-// Enhanced Feature Cards
-function enhanceFeatureCards() {
-    document.querySelectorAll('.feature-card').forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            if (window.innerWidth > 768) {
-                this.style.transform = 'translateY(-15px) rotateX(5deg)';
-                
-                // Add glow effect
-                this.style.boxShadow = `
-                    0 30px 60px rgba(0, 212, 255, 0.2),
-                    inset 0 1px 0 rgba(255, 255, 255, 0.1)
-                `;
-            } else {
-                this.style.transform = 'translateY(-10px)';
-            }
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) rotateX(0deg)';
-            this.style.boxShadow = '';
-        });
-
-        // 3D tilt effect (desktop only)
-        if (window.innerWidth > 768) {
-            card.addEventListener('mousemove', function(e) {
-                const rect = this.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateX = (y - centerY) / 10;
-                const rotateY = (centerX - x) / 10;
-                
-                this.style.transform = `
-                    translateY(-15px) 
-                    rotateX(${rotateX}deg) 
-                    rotateY(${rotateY}deg)
-                    scale(1.02)
-                `;
-            });
-        }
-    });
-}
-
-// Dynamic Background (Desktop only)
-function createDynamicBackground() {
-    const canvas = document.createElement('canvas');
+    const slider = document.getElementById('tempSlider');
+    const display = document.getElementById('tempDisplay');
+    const stateLabel = document.getElementById('stateLabel');
+    const canvas = document.getElementById('particleCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -3;
-        pointer-events: none;
-    `;
-    document.body.appendChild(canvas);
+    const particleBox = document.querySelector('.particle-box');
 
+    // Set canvas size to match container
     function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        canvas.width = particleBox.offsetWidth;
+        canvas.height = particleBox.offsetHeight;
     }
+
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    const nodes = [];
-    const numNodes = 30; // Reduced for better performance
+    let particles = [];
+    let currentTemp = 0;
+    let currentState = 'solid';
 
-    for (let i = 0; i < numNodes; i++) {
-        nodes.push({
-            x: Math.random() * canvas.width,
-            y: Math.random() * canvas.height,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
-            radius: Math.random() * 2 + 1
-        });
+    // State descriptions in Bengali
+    const stateDescriptions = {
+        solid: {
+            bengali: 'কঠিন',
+            english: 'Solid',
+            description: 'কঠিন অবস্থায় কণাগুলি একটি নির্দিষ্ট গঠনে সাজানো থাকে এবং শুধুমাত্র তাদের স্থানে কম্পন করে।',
+            particleInfo: '❄️ কণাগুলি জালিকার মতো সাজানো | Particles arranged in a grid pattern'
+        },
+        liquid: {
+            bengali: 'তরল',
+            english: 'Liquid',
+            description: 'তরল অবস্থায় কণাগুলি একে অপরের চারপাশে প্রবাহিত হতে পারে কিন্তু একসাথে থাকে।',
+            particleInfo: '💧 কণাগুলি প্রবাহিত হয় এবং নিচে জমা হয় | Particles flow and settle at bottom'
+        },
+        gas: {
+            bengali: 'বায়বীয়',
+            english: 'Gas',
+            description: 'বায়বীয় অবস্থায় কণাগুলি দ্রুত চলাচল করে এবং সম্পূর্ণ স্থান জুড়ে ছড়িয়ে পড়ে।',
+            particleInfo: '💨 কণাগুলি দ্রুত গতিতে সব জায়গায় ছড়িয়ে পড়ে | Particles spread rapidly everywhere'
+        }
+    };
+
+    // Particle class
+    class Particle {
+        constructor(index, total) {
+            this.index = index;
+            this.total = total;
+            this.reset();
+        }
+
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.baseX = this.x;
+            this.baseY = this.y;
+            this.vx = 0;
+            this.vy = 0;
+            this.size = 4;
+            this.targetX = this.x;
+            this.targetY = this.y;
+        }
+
+        setGridPosition(index, total) {
+            // Calculate grid position for solid state
+            const cols = Math.ceil(Math.sqrt(total));
+            const spacing = 20;
+            const offsetX = (canvas.width - (cols * spacing)) / 2;
+            const offsetY = canvas.height - Math.ceil(total / cols) * spacing - 20;
+
+            const col = index % cols;
+            const row = Math.floor(index / cols);
+
+            this.targetX = offsetX + col * spacing;
+            this.targetY = offsetY + row * spacing;
+        }
+
+        update(state, temp) {
+            if (state === 'solid') {
+                // Solid: particles move to grid positions and vibrate
+                const vibration = Math.max(0.5, (temp + 50) / 50);
+
+                // Move towards grid position
+                this.x += (this.targetX - this.x) * 0.1;
+                this.y += (this.targetY - this.y) * 0.1;
+
+                // Add vibration
+                this.x += (Math.random() - 0.5) * vibration;
+                this.y += (Math.random() - 0.5) * vibration;
+                this.size = 5;
+            } else if (state === 'liquid') {
+                // Liquid: particles flow slowly
+                const flowSpeed = (temp / 100) * 2; // Speed increases with temp
+                this.vx += (Math.random() - 0.5) * 0.5;
+                this.vy += (Math.random() - 0.5) * 0.5;
+                this.vx *= 0.95; // Damping
+                this.vy *= 0.95;
+
+                this.x += this.vx * flowSpeed;
+                this.y += this.vy * flowSpeed;
+
+                // Gravity effect
+                this.vy += 0.15;
+
+                // Keep particles in bounds with bounce
+                if (this.x < this.size) {
+                    this.vx *= -0.5;
+                    this.x = this.size;
+                }
+                if (this.x > canvas.width - this.size) {
+                    this.vx *= -0.5;
+                    this.x = canvas.width - this.size;
+                }
+                if (this.y > canvas.height - this.size) {
+                    this.vy *= -0.4;
+                    this.y = canvas.height - this.size;
+                    this.vx *= 0.95; // Friction on bottom
+                }
+                if (this.y < this.size) {
+                    this.vy *= -0.5;
+                    this.y = this.size;
+                }
+
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.size = 3;
+            } else if (state === 'gas') {
+                // Gas: particles move rapidly in all directions
+                const gasSpeed = ((temp - 100) / 60) * 2 + 1.5; // Speed increases with temp
+                this.vx += (Math.random() - 0.5) * 1.5;
+                this.vy += (Math.random() - 0.5) * 1.5;
+                this.vx *= 0.98;
+                this.vy *= 0.98;
+
+                this.x += this.vx * gasSpeed;
+                this.y += this.vy * gasSpeed;
+
+                // Float upward tendency
+                this.vy -= 0.15;
+
+                // Bounce off walls
+                if (this.x < this.size) {
+                    this.vx = Math.abs(this.vx);
+                    this.x = this.size;
+                }
+                if (this.x > canvas.width - this.size) {
+                    this.vx = -Math.abs(this.vx);
+                    this.x = canvas.width - this.size;
+                }
+                if (this.y < this.size) {
+                    this.vy = Math.abs(this.vy);
+                    this.y = this.size;
+                }
+                if (this.y > canvas.height - this.size) {
+                    this.vy = -Math.abs(this.vy);
+                    this.y = canvas.height - this.size;
+                }
+
+                this.baseX = this.x;
+                this.baseY = this.y;
+                this.size = 2;
+            }
+        }
+
+        draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
     }
 
+    // Create particles
+    function createParticles(count, state) {
+        particles = [];
+        for (let i = 0; i < count; i++) {
+            const particle = new Particle(i, count);
+
+            if (state === 'solid') {
+                // Start in grid position for solids
+                particle.setGridPosition(i, count);
+                particle.x = particle.targetX;
+                particle.y = particle.targetY;
+                particle.baseX = particle.targetX;
+                particle.baseY = particle.targetY;
+            } else if (state === 'liquid') {
+                // Start at bottom for liquids
+                particle.x = Math.random() * canvas.width;
+                particle.y = canvas.height - Math.random() * 150;
+            } else if (state === 'gas') {
+                // Start spread out for gas
+                particle.x = Math.random() * canvas.width;
+                particle.y = Math.random() * canvas.height;
+            }
+
+            particles.push(particle);
+        }
+
+        // Update grid positions for all particles
+        if (state === 'solid') {
+            particles.forEach((p, i) => p.setGridPosition(i, count));
+        }
+    }
+
+    // Initial particles
+    createParticles(100, 'solid');
+
+    // Animation loop
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        nodes.forEach(node => {
-            node.x += node.vx;
-            node.y += node.vy;
-            
-            if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
-            if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
-            
-            // Draw connections
-            nodes.forEach(otherNode => {
-                const dx = node.x - otherNode.x;
-                const dy = node.y - otherNode.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 100) {
-                    ctx.strokeStyle = `rgba(0, 212, 255, ${0.1 * (1 - distance / 100)})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.beginPath();
-                    ctx.moveTo(node.x, node.y);
-                    ctx.lineTo(otherNode.x, otherNode.y);
-                    ctx.stroke();
-                }
-            });
-            
-            // Draw node
-            ctx.fillStyle = 'rgba(0, 212, 255, 0.5)';
-            ctx.beginPath();
-            ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-            ctx.fill();
+
+        particles.forEach((particle, index) => {
+            // Update grid positions for solid state
+            if (currentState === 'solid') {
+                particle.setGridPosition(index, particles.length);
+            }
+            particle.update(currentState, currentTemp);
+            particle.draw();
         });
-        
+
         requestAnimationFrame(animate);
     }
+
     animate();
-}
 
-// Notification System
-function showNotification(message, type = 'info') {
-    const notification = document.createElement('div');
-    notification.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: ${type === 'success' ? 'linear-gradient(45deg, #00ff88, #00d4ff)' : 'linear-gradient(45deg, #ff0080, #7c3aed)'};
-        color: white;
-        padding: 1rem 2rem;
-        border-radius: 12px;
-        font-weight: 600;
-        z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(20px);
-        max-width: 90vw;
-        word-wrap: break-word;
-    `;
-    notification.textContent = message;
-    document.body.appendChild(notification);
-
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-
-    // Remove after delay
-    setTimeout(() => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => notification.remove(), 300);
-    }, 4000);
-}
-
-// Utility function for throttling
-function throttle(func, limit) {
-    let inThrottle;
-    return function() {
-        const args = arguments;
-        const context = this;
-        if (!inThrottle) {
-            func.apply(context, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    }
-}
-
-// Keyboard shortcuts
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        // Close mobile menu
-        const navLinks = document.getElementById('navLinks');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        navLinks.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-        
-        // Reset feature cards
-        document.querySelectorAll('.feature-card').forEach(card => {
-            card.style.transform = '';
-            card.style.boxShadow = '';
-        });
-    }
-});
-
-// Performance optimization for mobile
-if (window.innerWidth < 768) {
-    // Disable some animations on mobile for better performance
-    const style = document.createElement('style');
-    style.textContent = `
-        .orb {
-            animation: none;
-        }
-        .grid-overlay {
-            animation: none;
-        }
-    `;
-    document.head.appendChild(style);
-}
-
-// Easter egg - Click logo 5 times
-let clickCount = 0;
-document.querySelector('.logo').addEventListener('click', (e) => {
-    e.preventDefault();
-    clickCount++;
-    if (clickCount === 5) {
-        showNotification('🎉 Easter egg activated! You found the secret!', 'success');
-        document.body.style.filter = 'hue-rotate(180deg)';
-        setTimeout(() => {
-            document.body.style.filter = '';
-        }, 3000);
-        clickCount = 0;
-    }
-});
-
-// Add loading animation
-window.addEventListener('load', () => {
-    const loader = document.createElement('div');
-    loader.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #0a0a0a;
-        z-index: 10000;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transition: opacity 0.5s ease;
-    `;
-    loader.innerHTML = `
-        <div style="
-            width: 50px;
-            height: 50px;
-            border: 3px solid rgba(0, 212, 255, 0.3);
-            border-top: 3px solid #00d4ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        "></div>
-        <style>
-            @keyframes spin {
-                0% { transform: rotate(0deg); }
-                100% { transform: rotate(360deg); }
+    // Update visual examples
+    function updateVisualExample(state, temp) {
+        const visualItems = document.querySelectorAll('.visual-item');
+        visualItems.forEach(item => {
+            if (item.dataset.state === state) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
             }
-        </style>
-    `;
-    
-    document.body.appendChild(loader);
-    
-    setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => loader.remove(), 500);
-    }, 1000);
-});
+        });
 
-// Handle orientation change on mobile
-window.addEventListener('orientationchange', function() {
-    setTimeout(() => {
-        // Close mobile menu on orientation change
-        const navLinks = document.getElementById('navLinks');
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        navLinks.classList.remove('active');
-        mobileMenuBtn.classList.remove('active');
-        
-        // Recalculate positions if needed
-        if (window.innerWidth < 768) {
-            const particles = document.querySelectorAll('.particle');
-            particles.forEach(particle => {
-                const left = parseFloat(particle.style.left);
-                if (left > window.innerWidth) {
-                    particle.remove();
-                }
+        // Update ice cube melting effect
+        if (state === 'solid') {
+            const iceCube = document.getElementById('iceCube');
+            const droplets = iceCube.querySelectorAll('.water-droplet');
+            const puddle = iceCube.querySelector('.ice-puddle');
+
+            // Show melting only above -10°C (from -10°C to 0°C)
+            if (temp > -10) {
+                const meltAmount = (temp + 10) / 10; // 0 to 1
+
+                // Show droplets and make them active
+                droplets.forEach(d => {
+                    d.classList.add('active');
+                    d.style.opacity = meltAmount;
+                });
+                puddle.style.opacity = meltAmount * 0.6;
+
+                // Make ice more transparent as it melts
+                iceCube.style.opacity = 1 - (meltAmount * 0.3);
+            } else {
+                // Hide droplets completely
+                droplets.forEach(d => {
+                    d.classList.remove('active');
+                    d.style.opacity = 0;
+                });
+                puddle.style.opacity = 0;
+                iceCube.style.opacity = 1;
+            }
+        }
+
+        // Update water movement based on temperature
+        if (state === 'liquid') {
+            const waterLevel = document.getElementById('waterLevel');
+            const glass = waterLevel.parentElement;
+
+            // More movement at higher temperatures
+            const movement = (temp / 100) * 2;
+            glass.style.animationDuration = Math.max(1, 3 - movement) + 's';
+
+            // Show bubbles at higher temperatures (above 70°C)
+            const bubbles = waterLevel.querySelectorAll('.bubble');
+            if (temp > 70) {
+                const bubbleIntensity = (temp - 70) / 30; // 0 to 1
+                bubbles.forEach(b => b.style.opacity = bubbleIntensity);
+            } else {
+                bubbles.forEach(b => b.style.opacity = 0);
+            }
+        }
+
+        // Update steam intensity based on temperature
+        if (state === 'gas') {
+            const steamParticles = document.querySelectorAll('.steam-particle');
+            const intensity = Math.min(1, (temp - 100) / 60); // 0 to 1
+
+            steamParticles.forEach((particle, index) => {
+                const baseOpacity = 0.7;
+                particle.style.opacity = baseOpacity + (intensity * 0.3);
+
+                // Make steam rise faster at higher temps
+                const baseDuration = 2 + (index * 0.1);
+                particle.style.animationDuration = Math.max(1, baseDuration - intensity) + 's';
             });
         }
-    }, 500);
-});
+    }
 
-// Intersection Observer for better performance
-const observerOptions = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 0.1
-};
+    // Slider event
+    slider.addEventListener('input', function() {
+        const value = parseInt(this.value);
+        currentTemp = value;
+        display.textContent = value + '°C';
 
-// Pause animations when not visible
-const pageVisibilityObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // Resume animations
-            document.body.style.animationPlayState = 'running';
+        // Determine state
+        const previousState = currentState;
+
+        if (value < 0) {
+            currentState = 'solid';
+            updateStateLabels('solid');
+            if (previousState !== 'solid') {
+                createParticles(100, 'solid');
+            }
+            updateVisualExample('solid', value);
+        } else if (value >= 0 && value <= 100) {
+            currentState = 'liquid';
+            updateStateLabels('liquid');
+            if (previousState !== 'liquid') {
+                createParticles(100, 'liquid');
+            }
+            updateVisualExample('liquid', value);
         } else {
-            // Pause animations
-            document.body.style.animationPlayState = 'paused';
+            currentState = 'gas';
+            updateStateLabels('gas');
+            if (previousState !== 'gas') {
+                createParticles(120, 'gas');
+            }
+            updateVisualExample('gas', value);
         }
     });
-}, observerOptions);
 
-// Observe the body for visibility
-pageVisibilityObserver.observe(document.body);
+    // Update state labels
+    function updateStateLabels(state) {
+        const stateLabel = document.getElementById('stateLabel');
+        const stateLabelEn = document.getElementById('stateLabelEn');
+        const stateDescription = document.getElementById('stateDescription');
+        const particleInfo = document.querySelector('.particle-info .info-text');
+
+        const colors = {
+            solid: '#0066cc',
+            liquid: '#00aa66',
+            gas: '#cc6600'
+        };
+
+        stateLabel.textContent = stateDescriptions[state].bengali;
+        stateLabelEn.textContent = stateDescriptions[state].english;
+        stateDescription.textContent = stateDescriptions[state].description;
+        particleInfo.textContent = stateDescriptions[state].particleInfo;
+
+        stateLabel.style.color = colors[state];
+        stateLabelEn.style.color = colors[state];
+        stateDescription.style.borderLeftColor = colors[state];
+    }
+
+    // Initialize state labels
+    updateStateLabels('solid');
+});

@@ -1,0 +1,39 @@
+/* Header section styles */
+.header-section {
+    background: white;
+    padding: 30px;
+    border: 2px solid black;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 5px;
+}
+
+.main-subtitle {
+    font-size: 24px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.explanation {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+    text-align: left;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.explanation em {
+    color: #666;
+    font-size: 14px;
+    display: block;
+    margin-top: 10px;
+}

@@ -1,0 +1,48 @@
+/* Responsive styles */
+@media (max-width: 968px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .visual-example {
+        height: 250px;
+    }
+
+    .main-title {
+        font-size: 28px;
+    }
+
+    .main-subtitle {
+        font-size: 20px;
+    }
+
+    .explanation {
+        font-size: 14px;
+    }
+
+    .temperature-display {
+        font-size: 56px;
+    }
+
+    .particle-box {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header-section {
+        padding: 20px;
+    }
+
+    .controls {
+        padding: 20px;
+    }
+
+    .temperature-display {
+        font-size: 48px;
+    }
+
+    .state-label {
+        font-size: 24px;
+    }
+}

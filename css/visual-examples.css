@@ -1,0 +1,55 @@
+/* Visual examples panel styles */
+.visual-example {
+    border: 3px solid black;
+    border-radius: 8px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.example-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: black;
+}
+
+.example-subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.visual-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.visual-item {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.visual-item.active {
+    display: flex;
+}
+
+.visual-label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.visual-description {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    line-height: 1.4;
+}

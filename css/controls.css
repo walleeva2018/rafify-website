@@ -1,0 +1,106 @@
+/* Temperature control panel styles */
+.controls {
+    background: white;
+    padding: 30px;
+    border: 2px solid black;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.state-info {
+    margin-bottom: 15px;
+}
+
+.state-label {
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.state-label-en {
+    font-size: 18px;
+    font-weight: 600;
+    color: #999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.state-description {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.6;
+    margin: 15px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 6px;
+    border-left: 4px solid #666;
+}
+
+.temperature-display {
+    font-size: 72px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+}
+
+.slider {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: #e0e0e0;
+    outline: none;
+    -webkit-appearance: none;
+    margin: 20px 0;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: black;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+.slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: black;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.slider::-moz-range-thumb:hover {
+    transform: scale(1.2);
+}
+
+.range-labels {
+    display: flex;
+    justify-content: space-between;
+    color: black;
+    font-size: 12px;
+    margin-top: 10px;
+    gap: 10px;
+}
+
+.range-labels span {
+    flex: 1;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.range-labels small {
+    font-size: 10px;
+    color: #666;
+}

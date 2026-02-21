@@ -3,289 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Basic SEO -->
-    <title>Rafify - Future Innovation</title>
-    <meta name="description" content="Experience the next generation of digital innovation with cutting-edge technology and breathtaking design.">
-    
-    <!-- Favicon (Fixed) -->
-    <link rel="icon" href="rafify.jpeg" type="image/jpeg">
-    <link rel="shortcut icon" href="rafify.jpeg" type="image/jpeg">
-    <link rel="apple-touch-icon" href="rafify.jpeg">
-    
-    <!-- Fallback Favicon -->
-    <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHZpZXdCb3g9IjAgMCAzMiAzMiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iOCIgZmlsbD0iIzAwZDRmZiIvPgo8dGV4dCB4PSI1MCUiIHk9IjUwJSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0iIzBhMGEwYSIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtd2VpZ2h0PSI3MDAiIGZvbnQtc2l6ZT0iMTZweCIgbGV0dGVyLXNwYWNpbmc9Ii0wcHgiPlI8L3RleHQ+Cjwvc3ZnPgo=" type="image/svg+xml">
-    
-    <!-- Social Media -->
-    <meta property="og:title" content="Rafify - Future Innovation">
-    <meta property="og:description" content="Experience the next generation of digital innovation with cutting-edge technology and breathtaking design.">
-    <meta property="og:image" content="rafify.jpeg">
-    <meta property="og:url" content="https://rafify.com">
-    
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#00d4ff">
-    
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <title>তাপমাত্রা নিয়ন্ত্রণ - Temperature Control</title>
+
+    <!-- CSS Modules -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/particle-box.css">
+    <link rel="stylesheet" href="css/visual-examples.css">
+    <link rel="stylesheet" href="css/ice-cube.css">
+    <link rel="stylesheet" href="css/water-glass.css">
+    <link rel="stylesheet" href="css/steam.css">
+    <link rel="stylesheet" href="css/controls.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-    <div class="bg-container">
-        <div class="grid-overlay"></div>
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
+    <div class="container">
+        <div class="header-section">
+            <h1 class="main-title">পদার্থের অবস্থা</h1>
+            <h2 class="main-subtitle">States of Matter</h2>
+            <p class="explanation">
+                তাপমাত্রা পরিবর্তনের সাথে সাথে পদার্থ তিনটি ভিন্ন অবস্থায় থাকতে পারে। নিচের স্লাইডার ব্যবহার করে তাপমাত্রা পরিবর্তন করুন এবং কণাগুলি কীভাবে আচরণ করে তা পর্যবেক্ষণ করুন।
+                <br>
+                <em>Matter can exist in three different states depending on temperature. Use the slider below to change the temperature and observe how particles behave.</em>
+            </p>
+        </div>
+
+        <div class="main-content">
+            <div class="particle-box">
+                <div class="particle-info" id="particleInfo">
+                    <div class="info-text"></div>
+                </div>
+                <canvas id="particleCanvas"></canvas>
+            </div>
+            <div class="visual-example" id="visualExample">
+                <div class="example-title">বাস্তব উদাহরণ</div>
+                <div class="example-subtitle">Real World Example</div>
+                <div class="visual-container">
+                    <!-- Ice Cube (Solid) -->
+                    <div class="visual-item ice-cube active" data-state="solid">
+                        <div class="ice-cube-visual" id="iceCube">
+                            <div class="ice-shine"></div>
+                            <div class="water-droplet d1"></div>
+                            <div class="water-droplet d2"></div>
+                            <div class="water-droplet d3"></div>
+                            <div class="ice-puddle"></div>
+                        </div>
+                        <div class="visual-label">বরফ / Ice Cube</div>
+                        <div class="visual-description">কণাগুলি নির্দিষ্ট অবস্থানে থাকে</div>
+                    </div>
+
+                    <!-- Water (Liquid) -->
+                    <div class="visual-item water-glass" data-state="liquid">
+                        <div class="glass">
+                            <div class="water" id="waterLevel">
+                                <div class="wave wave1"></div>
+                                <div class="wave wave2"></div>
+                                <div class="bubble b1"></div>
+                                <div class="bubble b2"></div>
+                                <div class="bubble b3"></div>
+                            </div>
+                        </div>
+                        <div class="visual-label">পানি / Water</div>
+                        <div class="visual-description">কণাগুলি প্রবাহিত হয়</div>
+                    </div>
+
+                    <!-- Steam (Gas) -->
+                    <div class="visual-item steam" data-state="gas">
+                        <div class="steam-container" id="steamContainer">
+                            <div class="steam-particle sp1"></div>
+                            <div class="steam-particle sp2"></div>
+                            <div class="steam-particle sp3"></div>
+                            <div class="steam-particle sp4"></div>
+                            <div class="steam-particle sp5"></div>
+                            <div class="steam-particle sp6"></div>
+                            <div class="steam-particle sp7"></div>
+                            <div class="steam-particle sp8"></div>
+                        </div>
+                        <div class="visual-label">বাষ্প / Steam</div>
+                        <div class="visual-description">কণাগুলি সর্বত্র ছড়িয়ে পড়ে</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="controls">
+            <div class="state-info">
+                <div class="state-label" id="stateLabel">কঠিন</div>
+                <div class="state-label-en" id="stateLabelEn">Solid</div>
+            </div>
+            <div class="temperature-display" id="tempDisplay">0°C</div>
+            <div class="state-description" id="stateDescription">
+                কঠিন অবস্থায় কণাগুলি একটি নির্দিষ্ট গঠনে সাজানো থাকে এবং শুধুমাত্র তাদের স্থানে কম্পন করে।
+            </div>
+            <input type="range" id="tempSlider" class="slider" min="-50" max="160" value="0">
+            <div class="range-labels">
+                <span>-50°C<br><small>কঠিন / Solid</small></span>
+                <span>0-100°C<br><small>তরল / Liquid</small></span>
+                <span>160°C<br><small>বায়বীয় / Gas</small></span>
+            </div>
+        </div>
     </div>
-
-    <!-- Navigation -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-content">
-            <a href="#" class="logo">
-                <img src="rafify.jpeg" alt="Rafify" class="logo-img">
-                <span class="logo-text">Rafify</span>
-            </a>
-            <div class="mobile-menu-btn" id="mobileMenuBtn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span>✨ The Future is Now</span>
-            </div>
-            <h1>Welcome to Rafify</h1>
-            <p class="hero-subtitle">Experience the next generation of digital innovation with cutting-edge technology and breathtaking design</p>
-            <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary">Get Started →</a>
-                <a href="#features" class="btn btn-secondary">Learn More</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="section fade-in">
-        <div class="section-header">
-            <h2 class="section-title">Innovative Features</h2>
-            <p class="section-subtitle">Discover the powerful capabilities that make Rafify the perfect choice for modern businesses</p>
-        </div>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">🚀</div>
-                <h3 class="feature-title">Lightning Fast</h3>
-                <p class="feature-description">Experience unprecedented speed with our optimized performance architecture designed for the modern web.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3 class="feature-title">Beautiful Design</h3>
-                <p class="feature-description">Stunning visual aesthetics combined with intuitive user experience that captivates and engages.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🔒</div>
-                <h3 class="feature-title">Ultra Secure</h3>
-                <p class="feature-description">Enterprise-grade security measures to protect your data and ensure complete peace of mind.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3 class="feature-title">Smart AI</h3>
-                <p class="feature-description">Powered by advanced artificial intelligence to provide intelligent automation and insights.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🌍</div>
-                <h3 class="feature-title">Global Scale</h3>
-                <p class="feature-description">Built to scale globally with distributed infrastructure and multi-region deployment capabilities.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">📊</div>
-                <h3 class="feature-title">Real-time Analytics</h3>
-                <p class="feature-description">Comprehensive analytics dashboard with real-time insights and detailed performance metrics.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section about-section fade-in">
-        <div class="section-header">
-            <h2 class="section-title">About Rafify</h2>
-            <p class="section-subtitle">Pioneering the future of digital innovation with passion, expertise, and cutting-edge technology</p>
-        </div>
-        
-        <div class="about-content">
-            <div class="about-text">
-                <div class="about-story">
-                    <h3>Our Story</h3>
-                    <p>Founded in 2020, Rafify emerged from a vision to revolutionize how businesses interact with technology. What started as a small team of passionate developers has grown into a leading force in digital innovation, serving clients across 150+ countries.</p>
-                    
-                    <p>We believe that technology should empower, not complicate. Our mission is to create solutions that are not only powerful and scalable but also intuitive and beautiful. Every product we build reflects our commitment to excellence and our dedication to pushing the boundaries of what's possible.</p>
-                </div>
-                
-                <div class="about-values">
-                    <h3>Our Values</h3>
-                    <div class="values-grid">
-                        <div class="value-item">
-                            <div class="value-icon">💡</div>
-                            <h4>Innovation</h4>
-                            <p>Constantly pushing boundaries and exploring new possibilities</p>
-                        </div>
-                        <div class="value-item">
-                            <div class="value-icon">🤝</div>
-                            <h4>Collaboration</h4>
-                            <p>Working together to achieve extraordinary results</p>
-                        </div>
-                        <div class="value-item">
-                            <div class="value-icon">🎯</div>
-                            <h4>Excellence</h4>
-                            <p>Delivering quality that exceeds expectations every time</p>
-                        </div>
-                        <div class="value-item">
-                            <div class="value-icon">🌱</div>
-                            <h4>Growth</h4>
-                            <p>Continuous learning and evolving with the digital landscape</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="about-visual">
-                <div class="team-showcase">
-                    <div class="team-card active">
-                        <div class="team-member">
-                            <div class="member-avatar">👨‍💻</div>
-                            <div class="member-info">
-                                <h4>Alex Rivera</h4>
-                                <p>CEO & Founder</p>
-                                <span>"Innovation is not about having new ideas, it's about making them reality."</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="team-card">
-                        <div class="team-member">
-                            <div class="member-avatar">👩‍🎨</div>
-                            <div class="member-info">
-                                <h4>Sarah Chen</h4>
-                                <p>Lead Designer</p>
-                                <span>"Great design is invisible, it just works beautifully."</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="team-card">
-                        <div class="team-member">
-                            <div class="member-avatar">👨‍🔧</div>
-                            <div class="member-info">
-                                <h4>Marcus Johnson</h4>
-                                <p>CTO</p>
-                                <span>"Technology should amplify human potential, not replace it."</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="achievements">
-                    <div class="achievement-item">
-                        <div class="achievement-icon">🏆</div>
-                        <div class="achievement-text">
-                            <h4>Award Winner</h4>
-                            <p>Best Game Innovation 2024</p>
-                        </div>
-                    </div>
-                    <div class="achievement-item">
-                        <div class="achievement-icon">🌟</div>
-                        <div class="achievement-text">
-                            <h4>Top Rated</h4>
-                            <p>4.8/5 Client Satisfaction</p>
-                        </div>
-                    </div>
-                    <div class="achievement-item">
-                        <div class="achievement-icon">🚀</div>
-                        <div class="achievement-text">
-                            <h4>Fast Growing</h4>
-                            <p>300% Growth in 2024</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="mission-vision">
-            <div class="mission-card">
-                <div class="card-header">
-                    <div class="card-icon">🎯</div>
-                    <h3>Our Mission</h3>
-                </div>
-                <p>To democratize access to cutting-edge technology and empower businesses of all sizes to thrive in the digital age through innovative, scalable, and user-centric solutions.</p>
-            </div>
-            
-            <div class="vision-card">
-                <div class="card-header">
-                    <div class="card-icon">🔮</div>
-                    <h3>Our Vision</h3>
-                </div>
-                <p>To become the global leader in digital transformation, creating a world where technology seamlessly integrates with human creativity to solve the most complex challenges.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats-section fade-in">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <span class="stat-number" data-count="859">0</span>
-                <span class="stat-label">Active Users</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-count="99.9">0</span>
-                <span class="stat-label">% Uptime</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-count="8">0</span>
-                <span class="stat-label">Countries</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number" data-count="24">0</span>
-                <span class="stat-label">7 Support</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section fade-in">
-        <div class="section-header">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="section-subtitle">Ready to transform your business? Let's start the conversation.</p>
-        </div>
-        <form class="contact-form" id="contactForm">
-            <div class="form-group">
-                <input type="text" name="name" class="form-input" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" name="email" class="form-input" placeholder="Email Address" required>
-            </div>
-            <div class="form-group">
-                <input type="tel" name="phone" class="form-input" placeholder="Phone Number (Optional)">
-            </div>
-            <div class="form-group">
-                <textarea name="message" class="form-input" rows="5" placeholder="Tell us about your project..." required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Send Message ✨</button>
-        </form>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2025 Rafify. All rights reserved. Built with passion and innovation.</p>
-    </footer>
-
-    <script src="script.js"></script>
+    <!-- JavaScript Modules -->
+    <script type="module" src="js/app.js"></script>
 </body>
 </html>
