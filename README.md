@@ -1,125 +1,136 @@
-# পদার্থের অবস্থা / States of Matter
+# States of Matter - Nuxt.js Website
 
-An interactive temperature simulator that visualizes how particles behave in different states of matter (solid, liquid, and gas). Built with vanilla JavaScript and CSS, featuring bilingual support (Bengali/English).
+An SEO-optimized landing page built with Nuxt.js for the States of Matter interactive temperature simulator. Features bilingual support (Bengali/English) and modern, responsive design.
 
 ## Features
 
-- 🌡️ Interactive temperature slider (-50°C to 160°C)
-- 🎨 Real-time particle simulation showing solid, liquid, and gas states
-- 🖼️ Visual examples with animations (ice cube, water, steam)
-- 🌍 Bilingual interface (Bengali/English)
-- 📱 Responsive design for mobile and desktop
-- 🎯 Educational descriptions of particle behavior
+- **SEO Optimized**: Comprehensive meta tags, Open Graph, Twitter Cards, and structured data
+- **Responsive Design**: Mobile-first approach that works on all devices
+- **Modern UI**: Beautiful gradient designs with smooth animations
+- **Bilingual Support**: Content available in Bengali (বাংলা) and English
+- **Performance**: Built with Nuxt 3 for optimal loading and performance
+- **Accessibility**: Semantic HTML and ARIA-compliant components
 
 ## Project Structure
 
 ```
 rafify/
-├── index.html              # Main HTML file
-├── README.md              # Project documentation
+├── app.vue              # Main landing page component
+├── nuxt.config.ts       # Nuxt configuration with SEO settings
+├── package.json         # Dependencies
+├── tsconfig.json        # TypeScript configuration
 │
-├── css/                   # Stylesheets (modular)
-│   ├── base.css          # Base styles and resets
-│   ├── header.css        # Header section styles
-│   ├── particle-box.css  # Particle simulation box
-│   ├── visual-examples.css # Visual examples panel
-│   ├── ice-cube.css      # Ice cube visual styles
-│   ├── water-glass.css   # Water glass visual styles
-│   ├── steam.css         # Steam visual styles
-│   ├── controls.css      # Temperature controls
-│   └── responsive.css    # Responsive design rules
+├── assets/
+│   └── css/
+│       └── main.css     # Global styles and CSS reset
 │
-└── js/                    # JavaScript modules
-    ├── app.js            # Main application entry point
-    ├── constants.js      # Constants and configurations
-    ├── particle.js       # Particle class
-    ├── particle-manager.js # Particle management
-    ├── visual-updater.js # Visual examples updater
-    └── ui-controller.js  # UI state management
+├── public/              # Static assets (favicon, images)
+├── server/              # Server-side code
+├── .nuxt/               # Build files (auto-generated)
+│
+└── old-website/         # Original vanilla JS website (backup)
+    ├── index.html
+    ├── css/
+    └── js/
 ```
 
-## How It Works
+## Setup
 
-### Temperature Ranges
-
-- **Below 0°C (Solid)**: Particles arrange in a grid pattern and vibrate in place
-- **0-100°C (Liquid)**: Particles flow around and settle at the bottom with gravity
-- **Above 100°C (Gas)**: Particles spread rapidly throughout the entire space
-
-### Visual Effects
-
-#### Ice Cube (Solid)
-- Shows melting effects when temperature approaches 0°C (above -10°C)
-- Water droplets start dripping from the ice
-- Puddle forms underneath
-
-#### Water (Liquid)
-- Glass wobbles with temperature-responsive animation
-- Animated waves on the water surface
-- Bubbles appear above 70°C (pre-boiling effect)
-
-#### Steam (Gas)
-- Multiple steam particles rising continuously
-- Particles expand and fade as they rise
-- Animation speed increases with temperature
-
-## File Descriptions
-
-### CSS Modules
-
-- **base.css**: Global resets, body styles, and container layout
-- **header.css**: Header section with bilingual title and explanation
-- **particle-box.css**: Canvas container for particle simulation
-- **visual-examples.css**: Side panel for real-world examples
-- **ice-cube.css**: Ice cube animation with melting effects
-- **water-glass.css**: Water glass with waves and bubbles
-- **steam.css**: Rising steam particle animations
-- **controls.css**: Temperature slider and state display
-- **responsive.css**: Mobile and tablet breakpoints
-
-### JavaScript Modules
-
-- **app.js**: Main application orchestrator
-  - Initializes all components
-  - Handles animation loop
-  - Manages slider events
-
-- **constants.js**: Configuration and data
-  - State descriptions (Bengali/English)
-  - Color schemes
-
-- **particle.js**: Particle behavior
-  - Solid state: Grid positioning and vibration
-  - Liquid state: Flow, gravity, and collision
-  - Gas state: Rapid movement and expansion
-
-- **particle-manager.js**: Particle lifecycle
-  - Creates particles based on state
-  - Updates particle positions
-  - Renders particles on canvas
-
-- **visual-updater.js**: Visual effects
-  - Switches between ice/water/steam
-  - Updates melting, bubbling, steam intensity
-  - Temperature-responsive animations
-
-- **ui-controller.js**: Interface updates
-  - State labels and descriptions
-  - Temperature display
-  - Color theming
-
-## Usage
-
-Simply open `index.html` in a modern web browser. No build process required!
+Install dependencies:
 
 ```bash
-# Option 1: Open directly
-open index.html
-
-# Option 2: Use a local server
-python -m http.server 8000
-# Then visit: http://localhost:8000
+npm install
 ```
+
+## Development
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+npm run dev
+```
+
+The site will be available at:
+- Local: http://localhost:3000/
+
+## Production
+
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Preview production build:
+
+```bash
+npm run preview
+```
+
+## SEO Features
+
+### Meta Tags
+- Complete title and description tags
+- Keywords for search engine optimization
+- Author and robots directives
+- Mobile-optimized viewport settings
+
+### Social Media
+- Open Graph tags for Facebook
+- Twitter Card tags for Twitter
+- Custom theme colors for mobile browsers
+
+### Structured Data
+- Schema.org WebApplication markup
+- Proper JSON-LD implementation
+- Educational application categorization
+
+## Sections
+
+1. **Hero Section**: Eye-catching introduction with animated particle previews
+2. **Features Section**: Six key features with icons and descriptions
+3. **How It Works**: Explanation of solid, liquid, and gas states
+4. **CTA Section**: Call-to-action with link to simulator
+5. **Footer**: Copyright and technology stack information
+
+## Customization
+
+### Colors
+Edit the CSS variables in [app.vue](app.vue:173-180) or [main.css](assets/css/main.css) to change the color scheme:
+
+```css
+:root {
+  --primary: #2563eb;
+  --secondary: #7c3aed;
+  --accent: #06b6d4;
+  --text: #1f2937;
+  --text-light: #6b7280;
+  --bg: #ffffff;
+  --bg-light: #f9fafb;
+}
+```
+
+### SEO Settings
+Update meta tags in [nuxt.config.ts](nuxt.config.ts:6-42) to customize SEO information.
+
+## Technologies
+
+- **Nuxt 3**: Vue.js framework for production
+- **Vue 3**: Progressive JavaScript framework
+- **TypeScript**: Type-safe development
+- **Vite**: Fast build tool and dev server
+- **CSS3**: Modern styling with animations
+
+## Deployment
+
+This Nuxt app can be deployed to various platforms:
+
+- **Vercel**: `vercel deploy`
+- **Netlify**: Connect repository and deploy
+- **Cloudflare Pages**: Connect and deploy
+- **Node.js Server**: Use `npm run build` and serve `.output` directory
+
+Check out the [Nuxt deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
 ## Browser Support
 
@@ -128,27 +139,18 @@ python -m http.server 8000
 - Safari (latest)
 - Mobile browsers (iOS Safari, Chrome Mobile)
 
-## Technologies
+## Migration Notes
 
-- **HTML5 Canvas** for particle rendering
-- **CSS3** for animations and visual effects
-- **ES6 Modules** for JavaScript organization
-- **Vanilla JavaScript** (no frameworks)
-
-## Educational Value
-
-This project demonstrates:
-- States of matter (solid, liquid, gas)
-- Particle theory and kinetic energy
-- Phase transitions (melting, evaporation)
-- Temperature effects on molecular behavior
-
-Perfect for science education, interactive learning, and understanding physical states!
+The original vanilla JavaScript website has been backed up to the [old-website/](old-website/) directory. The new Nuxt.js version provides:
+- Better SEO capabilities
+- Modern framework features
+- Improved performance
+- Easier maintenance and scalability
 
 ## License
 
-MIT License - Feel free to use for educational purposes
+MIT License - Feel free to use for educational and commercial purposes.
 
 ## Credits
 
-Created with Bengali language support for bilingual education.
+Built with Nuxt.js for the States of Matter interactive simulator project.
