@@ -12,17 +12,19 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background: #1a1b1f;
+  color: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* Global Variables */
 :root {
-  --primary: #2563eb;
-  --secondary: #7c3aed;
-  --accent: #06b6d4;
-  --text: #1f2937;
-  --text-light: #6b7280;
-  --bg: #ffffff;
-  --bg-light: #f9fafb;
+  --primary: #2d5016;
+  --secondary: #c9c650;
+  --accent: #f0eb66;
+  --text: #ffffff;
+  --text-light: rgba(255, 255, 255, 0.78);
+  --bg: #1a1b1f;
+  --bg-light: #222329;
 }
