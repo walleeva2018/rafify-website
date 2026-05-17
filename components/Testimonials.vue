@@ -79,12 +79,47 @@
   border-radius: 1rem;
   padding: 2.5rem;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonial-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: conic-gradient(from 0deg at 50% 50%,
+    transparent 0deg,
+    rgba(201, 198, 80, 0.1) 90deg,
+    transparent 180deg,
+    rgba(124, 179, 66, 0.1) 270deg,
+    transparent 360deg);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  animation: rotate-gradient 8s linear infinite;
+  pointer-events: none;
+}
+
+.testimonial-card:hover::after {
+  opacity: 1;
+}
+
+@keyframes rotate-gradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .testimonial-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
   border-color: var(--secondary);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 30px rgba(201, 198, 80, 0.2);
 }
 
 .stars {

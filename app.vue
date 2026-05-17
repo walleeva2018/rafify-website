@@ -3,6 +3,9 @@
     <NuxtRouteAnnouncer />
     <div class="scroll-progress" aria-hidden="true"></div>
 
+    <!-- Growing Tree Canvas -->
+    <canvas ref="treeCanvas" class="tree-canvas" aria-hidden="true"></canvas>
+
     <Navbar />
     <Hero />
     <MediaNarrative />
@@ -69,13 +72,121 @@ useHead({
 let animationContext
 let heroPointerMove
 
+// Refs for new interactive elements
+const treeCanvas = ref(null)
+let treeCtx = null
+let treeGrowth = 0
+
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+// Draw organic growing tree
+const drawTree = (ctx, x, y, length, angle, depth, scrollProgress) => {
+  if (depth === 0 || length < 2) return
+
+  const endX = x + length * Math.cos(angle)
+  const endY = y + length * Math.sin(angle)
+
+  // Create gradient for branch
+  const gradient = ctx.createLinearGradient(x, y, endX, endY)
+  gradient.addColorStop(0, `rgba(201, 198, 80, ${0.6 * scrollProgress})`)
+  gradient.addColorStop(1, `rgba(124, 179, 66, ${0.4 * scrollProgress})`)
+
+  ctx.strokeStyle = gradient
+  ctx.lineWidth = depth * 1.5
+  ctx.lineCap = 'round'
+
+  ctx.beginPath()
+  ctx.moveTo(x, y)
+  ctx.lineTo(endX, endY)
+  ctx.stroke()
+
+  // Add leaves at branch tips
+  if (depth <= 3) {
+    const leafGradient = ctx.createRadialGradient(endX, endY, 0, endX, endY, depth * 3)
+    leafGradient.addColorStop(0, `rgba(240, 235, 102, ${0.8 * scrollProgress})`)
+    leafGradient.addColorStop(1, `rgba(201, 198, 80, 0)`)
+
+    ctx.fillStyle = leafGradient
+    ctx.beginPath()
+    ctx.arc(endX, endY, depth * 3, 0, Math.PI * 2)
+    ctx.fill()
+  }
+
+  // Recursive branching with organic variation
+  const angleVariation = 0.3 + Math.random() * 0.2
+  const lengthVariation = 0.67 + Math.random() * 0.1
+
+  drawTree(ctx, endX, endY, length * lengthVariation, angle - angleVariation, depth - 1, scrollProgress)
+  drawTree(ctx, endX, endY, length * lengthVariation, angle + angleVariation, depth - 1, scrollProgress)
+}
+
+// Initialize and animate tree canvas
+const initTreeCanvas = () => {
+  if (!treeCanvas.value) return
+
+  const canvas = treeCanvas.value
+  const dpr = window.devicePixelRatio || 1
+
+  canvas.width = window.innerWidth * dpr
+  canvas.height = window.innerHeight * dpr
+  canvas.style.width = `${window.innerWidth}px`
+  canvas.style.height = `${window.innerHeight}px`
+
+  treeCtx = canvas.getContext('2d')
+  treeCtx.scale(dpr, dpr)
+}
+
+const animateTree = () => {
+  if (!treeCtx || !treeCanvas.value) return
+
+  const canvas = treeCanvas.value
+  treeCtx.clearRect(0, 0, canvas.width, canvas.height)
+
+  // Calculate scroll progress
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+  const scrolled = window.scrollY
+  const scrollProgress = Math.min(scrolled / scrollHeight, 1)
+
+  // Update tree growth based on scroll
+  treeGrowth = scrollProgress
+
+  // Draw multiple trees at different positions (growing from bottom to top)
+  const trees = [
+    { x: window.innerWidth * 0.1, y: window.innerHeight * 0.9, depth: 8 },
+    { x: window.innerWidth * 0.85, y: window.innerHeight * 0.85, depth: 7 },
+    { x: window.innerWidth * 0.5, y: window.innerHeight * 1.2, depth: 9 }
+  ]
+
+  trees.forEach(tree => {
+    const growthDepth = Math.floor(tree.depth * scrollProgress)
+    if (growthDepth > 0) {
+      drawTree(treeCtx, tree.x, tree.y, 60 * scrollProgress, -Math.PI / 2, growthDepth, scrollProgress)
+    }
+  })
+
+  requestAnimationFrame(animateTree)
+}
+
 // GSAP Animations
 onMounted(() => {
   if (prefersReducedMotion()) return
+
+  // Initialize new interactive features
+  initTreeCanvas()
+  animateTree()
+
+  // Handle resize
+  const handleResize = () => {
+    initTreeCanvas()
+  }
+  window.addEventListener('resize', handleResize)
+
+  // Cleanup function stored for unmount
+  window.__cleanupIntervals = () => {
+    window.removeEventListener('resize', handleResize)
+  }
 
   animationContext = gsap.context(() => {
     gsap.set('.hero-content, .hero-content > *, .hero-visual, .media-composition, .service-card, .testimonial-card, .section-header', {
@@ -428,21 +539,77 @@ onMounted(() => {
       }
     })
 
-    // Service cards with stagger
+    // Service cards with stagger and 3D perspective
     const serviceCards = gsap.utils.toArray('.service-card')
     if (serviceCards.length > 0) {
-      gsap.from(serviceCards, {
-        y: 60,
-        opacity: 0,
-        scale: 0.9,
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: '.services-grid',
-          start: 'top 75%',
-          once: true
-        }
+      serviceCards.forEach((card, index) => {
+        // Initial reveal with organic bounce
+        gsap.from(card, {
+          y: 80,
+          opacity: 0,
+          scale: 0.85,
+          rotationX: -15,
+          rotationY: index % 2 === 0 ? -8 : 8,
+          duration: 1,
+          delay: index * 0.15,
+          ease: 'elastic.out(1, 0.6)',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 80%',
+            once: true
+          }
+        })
+
+        // Scroll-based 3D tilt effect
+        gsap.to(card, {
+          rotationX: 5,
+          rotationY: index % 2 === 0 ? 3 : -3,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        })
+
+        // Add magnetic hover effect
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            scale: 1.05,
+            rotationX: 0,
+            rotationY: 0,
+            z: 50,
+            duration: 0.4,
+            ease: 'power2.out'
+          })
+        })
+
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            scale: 1,
+            z: 0,
+            duration: 0.4,
+            ease: 'power2.out'
+          })
+        })
+
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect()
+          const x = e.clientX - rect.left
+          const y = e.clientY - rect.top
+          const centerX = rect.width / 2
+          const centerY = rect.height / 2
+          const rotateX = (y - centerY) / 10
+          const rotateY = (centerX - x) / 10
+
+          gsap.to(card, {
+            rotationX: -rotateX,
+            rotationY: rotateY,
+            duration: 0.3,
+            ease: 'power2.out'
+          })
+        })
       })
     }
 
@@ -553,20 +720,56 @@ onMounted(() => {
       }
     })
 
-    // Testimonials cards
-    gsap.from('.testimonial-card', {
-      y: 60,
-      opacity: 0,
-      scale: 0.95,
-      rotation: (index) => (index % 2 === 0 ? -2 : 2),
-      duration: 0.8,
-      stagger: 0.15,
-      ease: 'power3.out',
-      scrollTrigger: {
-        trigger: '.testimonials-grid',
-        start: 'top 75%',
-        once: true
-      }
+    // Testimonials cards with organic entrance
+    const testimonialCards = gsap.utils.toArray('.testimonial-card')
+    testimonialCards.forEach((card, index) => {
+      // Organic reveal animation
+      gsap.from(card, {
+        y: 100,
+        opacity: 0,
+        scale: 0.9,
+        rotation: index % 2 === 0 ? -5 : 5,
+        duration: 1.2,
+        delay: index * 0.15,
+        ease: 'elastic.out(1, 0.7)',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+          once: true
+        }
+      })
+
+      // Parallax effect on scroll
+      gsap.to(card, {
+        y: index % 2 === 0 ? -30 : 30,
+        rotation: index % 2 === 0 ? 2 : -2,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: card,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5
+        }
+      })
+
+      // Hover glow effect
+      card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+          scale: 1.03,
+          boxShadow: '0 20px 60px rgba(201, 198, 80, 0.3)',
+          duration: 0.3,
+          ease: 'power2.out'
+        })
+      })
+
+      card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+          scale: 1,
+          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+          duration: 0.3,
+          ease: 'power2.out'
+        })
+      })
     })
 
     // Contact form elements
@@ -622,6 +825,41 @@ onMounted(() => {
     revealOnScroll('.feature-item', { y: 24, groupSize: 3 })
     revealOnScroll('.tech-category', { x: 24, y: 0, groupSize: 4 })
 
+    // Scroll-based section background color shifts
+    gsap.utils.toArray('.services, .testimonials').forEach((section, index) => {
+      gsap.to(section, {
+        backgroundColor: index % 2 === 0 ? 'rgba(31, 44, 24, 0.3)' : 'rgba(26, 27, 31, 1)',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top center',
+          end: 'bottom center',
+          scrub: 2
+        }
+      })
+    })
+
+    // Smooth wave effect on scroll for section headers
+    gsap.utils.toArray('.section-header h2').forEach((header) => {
+      const text = header.textContent
+      const words = text.split(' ')
+      header.innerHTML = words.map(word => `<span class="word-reveal">${word}</span>`).join(' ')
+
+      gsap.from(header.querySelectorAll('.word-reveal'), {
+        opacity: 0,
+        y: 30,
+        rotationX: -90,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: 'back.out(1.2)',
+        scrollTrigger: {
+          trigger: header,
+          start: 'top 85%',
+          once: true
+        }
+      })
+    })
+
     gsap.utils.toArray('.stat-number').forEach((stat) => {
       const label = stat.textContent.trim()
       const endValue = Number.parseInt(label, 10)
@@ -653,6 +891,10 @@ onMounted(() => {
 onUnmounted(() => {
   if (heroPointerMove) {
     window.removeEventListener('mousemove', heroPointerMove)
+  }
+
+  if (window.__cleanupIntervals) {
+    window.__cleanupIntervals()
   }
 
   animationContext?.revert()
@@ -743,5 +985,66 @@ p {
   transform-origin: 0 50%;
   z-index: 2000;
   box-shadow: 0 0 18px rgba(201, 198, 80, 0.5);
+}
+
+/* Growing Tree Canvas */
+.tree-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.4;
+  mix-blend-mode: screen;
+}
+
+/* Enhanced scroll-based background gradients */
+.landing-page {
+  background: linear-gradient(180deg,
+    var(--bg-dark) 0%,
+    var(--bg-dark-green) 20%,
+    var(--bg-dark) 40%,
+    var(--primary-dark) 60%,
+    var(--bg-dark) 80%,
+    var(--bg-dark) 100%
+  );
+  background-size: 100% 300%;
+  animation: gradient-flow 30s ease infinite;
+}
+
+@keyframes gradient-flow {
+  0%, 100% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 0% 100%;
+  }
+}
+
+/* Word reveal animation styling */
+.word-reveal {
+  display: inline-block;
+  margin-right: 0.3em;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Mobile optimizations - hide heavy effects */
+@media (max-width: 968px) {
+  .tree-canvas {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tree-canvas {
+    display: none;
+  }
+
+  .landing-page {
+    animation: none;
+  }
 }
 </style>
