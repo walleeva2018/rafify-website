@@ -3,507 +3,15 @@
     <NuxtRouteAnnouncer />
     <div class="scroll-progress" aria-hidden="true"></div>
 
-    <!-- Navigation -->
-    <nav class="navbar">
-      <div class="container nav-container">
-        <a href="/" class="logo" aria-label="DataTree Technology home">
-          <img src="/main-logo.jpg" alt="DataTree Technology" class="logo-img" />
-        </a>
-        <div class="nav-links">
-          <a href="/">Home</a>
-          <a href="#services">Services</a>
-          <a href="#about">About Us</a>
-          <a href="#portfolio">Portfolio</a>
-          <a href="#contact" class="btn-nav">Collaborate</a>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="tree-pattern"></div>
-      <div class="container">
-        <div class="hero-content">
-          <div class="badge">💼 Enterprise Software Development</div>
-          <h1 class="title">
-            Your Strategic Partner in
-            <span class="highlight-text">Digital Innovation</span>
-          </h1>
-          <p class="subtitle">
-            Seamless solutions, stunning designs, and superior experiences. We specialize in custom software development for Healthcare & FinTech industries.
-          </p>
-          <div class="cta-buttons">
-            <a href="#contact" class="btn btn-primary">
-              <span>Start Your Project</span>
-              <span class="arrow">→</span>
-            </a>
-            <a href="#about" class="btn btn-secondary">More About Us</a>
-          </div>
-          <div class="stats">
-            <div class="stat-item">
-              <div class="stat-number">50+</div>
-              <div class="stat-label">Qualified Developers</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">100+</div>
-              <div class="stat-label">Projects Delivered</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number">98%</div>
-              <div class="stat-label">Client Satisfaction</div>
-            </div>
-          </div>
-        </div>
-        <div class="hero-visual">
-          <div class="media-composition">
-            <div class="line line-horizontal"></div>
-            <div class="line line-vertical"></div>
-            <div class="media-tile media-tile-large video-placeholder">
-              <video src="/media/product-film.mp4" poster="/media/product-film-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-              <div class="media-label">Product Film</div>
-              <div class="play-control" aria-hidden="true"></div>
-            </div>
-            <div class="media-tile media-tile-small image-placeholder">
-              <img src="/media/platform-ui.jpg" alt="Dummy platform UI placeholder" loading="lazy" />
-              <div class="media-label">Platform UI</div>
-            </div>
-            <div class="media-tile media-tile-tall image-placeholder image-placeholder-alt">
-              <img src="/media/mobile-flow.jpg" alt="Dummy mobile flow placeholder" loading="lazy" />
-              <div class="media-label">Mobile Flow</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="hero-bg-gradient"></div>
-    </section>
-
-    <!-- Media Narrative -->
-    <section class="media-narrative">
-      <div class="container">
-        <div class="narrative-kicker">Selected Direction</div>
-        <div class="narrative-grid">
-          <div class="narrative-copy">
-            <h2>Strategy, software, and content moving in one system.</h2>
-            <p>Placeholder media slots for future brand films, product walkthroughs, interface photography, and launch visuals.</p>
-          </div>
-          <div class="narrative-lines" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div>
-        <div class="media-strip">
-          <div class="strip-item strip-video video-placeholder">
-            <video src="/media/case-film.mp4" poster="/media/case-film-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-            <div class="media-label">Case Film</div>
-            <div class="play-control" aria-hidden="true"></div>
-          </div>
-          <div class="strip-item image-placeholder">
-            <img src="/media/brand-system.jpg" alt="Dummy brand system placeholder" loading="lazy" />
-            <div class="media-label">Brand System</div>
-          </div>
-          <div class="strip-item image-placeholder image-placeholder-alt">
-            <img src="/media/dashboard-detail.jpg" alt="Dummy dashboard detail placeholder" loading="lazy" />
-            <div class="media-label">Dashboard Detail</div>
-          </div>
-        </div>
-        <div class="capability-lines">
-          <div class="capability-line">
-            <span>01</span>
-            <strong>Design the experience</strong>
-          </div>
-          <div class="capability-line">
-            <span>02</span>
-            <strong>Build the platform</strong>
-          </div>
-          <div class="capability-line">
-            <span>03</span>
-            <strong>Launch with momentum</strong>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Scroll Reel -->
-    <section class="scroll-reel">
-      <div class="reel-header container">
-        <span>Scroll Reel</span>
-        <h2>Concept frames that move with the page.</h2>
-      </div>
-      <div class="reel-viewport">
-        <div class="reel-track">
-          <article class="reel-panel video-placeholder">
-            <video src="/media/brand-film.mp4" poster="/media/brand-film-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-            <span>01</span>
-            <h3>Brand Film Placeholder</h3>
-          </article>
-          <article class="reel-panel image-placeholder">
-            <img src="/media/product-detail.jpg" alt="Dummy product detail placeholder" loading="lazy" />
-            <span>02</span>
-            <h3>Product Detail Placeholder</h3>
-          </article>
-          <article class="reel-panel image-placeholder image-placeholder-alt">
-            <img src="/media/launch-visual.jpg" alt="Dummy launch visual placeholder" loading="lazy" />
-            <span>03</span>
-            <h3>Launch Visual Placeholder</h3>
-          </article>
-          <article class="reel-panel video-placeholder">
-            <video src="/media/motion-system.mp4" poster="/media/motion-system-poster.jpg" autoplay muted loop playsinline preload="metadata"></video>
-            <span>04</span>
-            <h3>Motion System Placeholder</h3>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="services">
-      <div class="container">
-        <div class="section-header">
-          <h2>What We Do Best</h2>
-          <p>Bespoke software solutions for demanding industries</p>
-        </div>
-        <div class="services-grid">
-          <div class="service-card">
-            <div class="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 18l2-2 4 4"></path>
-                <circle cx="9" cy="9" r="7"></circle>
-              </svg>
-            </div>
-            <h3>Web Development</h3>
-            <p>Modern, scalable web applications built with React, Vue, and Next.js. From MVPs to enterprise platforms, we deliver pixel-perfect experiences.</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                <line x1="12" y1="18" x2="12.01" y2="18"></line>
-              </svg>
-            </div>
-            <h3>Mobile Apps</h3>
-            <p>Native iOS and Android applications, plus cross-platform solutions with React Native and Flutter for seamless user experiences.</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="3"></circle>
-                <path d="M12 1v6m0 6v6"></path>
-                <path d="M17 7l-10 10"></path>
-                <path d="M7 7l10 10"></path>
-              </svg>
-            </div>
-            <h3>API Integration</h3>
-            <p>Seamless third-party integrations, RESTful APIs, and GraphQL services that connect your systems and streamline workflows.</p>
-          </div>
-          <div class="service-card">
-            <div class="service-icon">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="12" y1="20" x2="12" y2="10"></line>
-                <line x1="18" y1="20" x2="18" y2="4"></line>
-                <line x1="6" y1="20" x2="6" y2="16"></line>
-              </svg>
-            </div>
-            <h3>Data Analytics</h3>
-            <p>Transform raw data into actionable insights with custom dashboards, BI solutions, and machine learning implementations.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Industries -->
-    <section id="about" class="industries">
-      <div class="container">
-        <div class="industries-content">
-          <div class="industries-text">
-            <div class="section-badge">Our Expertise</div>
-            <h2>Specialized in Healthcare & FinTech</h2>
-            <p class="lead">We don't just write code—we solve complex business challenges for demanding industries that require precision, security, and compliance.</p>
-            <div class="features-list">
-              <div class="feature-item">
-                <div class="check-icon">✓</div>
-                <div>
-                  <h4>Healthcare Solutions</h4>
-                  <p>HIPAA-compliant systems, EHR integrations, telemedicine platforms, and patient management systems</p>
-                </div>
-              </div>
-              <div class="feature-item">
-                <div class="check-icon">✓</div>
-                <div>
-                  <h4>FinTech Applications</h4>
-                  <p>Payment gateways, trading platforms, blockchain solutions, and financial analytics dashboards</p>
-                </div>
-              </div>
-              <div class="feature-item">
-                <div class="check-icon">✓</div>
-                <div>
-                  <h4>Staff Augmentation</h4>
-                  <p>Extend your team with our senior developers, architects, and tech leads on-demand</p>
-                </div>
-              </div>
-            </div>
-            <a href="#contact" class="btn btn-primary-solid">Book a Call</a>
-          </div>
-          <div class="industries-visual">
-            <div class="tech-stack">
-              <div class="tech-category">
-                <h4>Frontend</h4>
-                <div class="tech-badges">
-                  <span class="tech-badge">React</span>
-                  <span class="tech-badge">Vue.js</span>
-                  <span class="tech-badge">Next.js</span>
-                  <span class="tech-badge">TypeScript</span>
-                </div>
-              </div>
-              <div class="tech-category">
-                <h4>Backend</h4>
-                <div class="tech-badges">
-                  <span class="tech-badge">Node.js</span>
-                  <span class="tech-badge">Python</span>
-                  <span class="tech-badge">PostgreSQL</span>
-                  <span class="tech-badge">MongoDB</span>
-                </div>
-              </div>
-              <div class="tech-category">
-                <h4>Mobile</h4>
-                <div class="tech-badges">
-                  <span class="tech-badge">React Native</span>
-                  <span class="tech-badge">Flutter</span>
-                  <span class="tech-badge">iOS</span>
-                  <span class="tech-badge">Android</span>
-                </div>
-              </div>
-              <div class="tech-category">
-                <h4>Cloud & DevOps</h4>
-                <div class="tech-badges">
-                  <span class="tech-badge">AWS</span>
-                  <span class="tech-badge">Azure</span>
-                  <span class="tech-badge">Docker</span>
-                  <span class="tech-badge">Kubernetes</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Portfolio Showcase -->
-    <section id="portfolio" class="portfolio-showcase">
-      <div class="container">
-        <div class="section-header">
-          <h2>Featured Work</h2>
-          <p>Real solutions for real businesses</p>
-        </div>
-        <div class="portfolio-grid">
-          <div class="portfolio-item">
-            <div class="portfolio-media">
-              <div class="media-placeholder">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
-                  <line x1="7" y1="2" x2="7" y2="22"></line>
-                  <line x1="17" y1="2" x2="17" y2="22"></line>
-                  <line x1="2" y1="12" x2="22" y2="12"></line>
-                  <line x1="2" y1="7" x2="7" y2="7"></line>
-                  <line x1="2" y1="17" x2="7" y2="17"></line>
-                  <line x1="17" y1="17" x2="22" y2="17"></line>
-                  <line x1="17" y1="7" x2="22" y2="7"></line>
-                </svg>
-              </div>
-            </div>
-            <div class="portfolio-content">
-              <div class="portfolio-meta">Healthcare Platform</div>
-              <h3>Telemedicine Solution</h3>
-              <p>HIPAA-compliant platform connecting patients with healthcare providers via secure video consultations</p>
-              <a href="#contact" class="portfolio-link">
-                View Case Study
-                <span class="arrow">→</span>
-              </a>
-            </div>
-          </div>
-          <div class="portfolio-item">
-            <div class="portfolio-media">
-              <div class="media-placeholder">
-                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <line x1="12" y1="1" x2="12" y2="23"></line>
-                  <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                </svg>
-              </div>
-            </div>
-            <div class="portfolio-content">
-              <div class="portfolio-meta">FinTech Application</div>
-              <h3>Trading Platform</h3>
-              <p>Real-time trading platform with advanced analytics and seamless payment gateway integration</p>
-              <a href="#contact" class="portfolio-link">
-                View Case Study
-                <span class="arrow">→</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-      <div class="container">
-        <div class="section-header">
-          <h2>Client Success Stories</h2>
-          <p>Hear from companies we've helped transform digitally</p>
-        </div>
-        <div class="testimonials-grid">
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"DataTree delivered our telemedicine platform on time and under budget. Their healthcare expertise and attention to HIPAA compliance was impressive."</p>
-            <div class="testimonial-author">
-              <div class="author-info">
-                <div class="author-name">Dr. Michael Chen</div>
-                <div class="author-role">CTO, HealthFirst Solutions</div>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"The team integrated complex payment APIs and built a scalable trading platform. Their FinTech knowledge saved us months of development time."</p>
-            <div class="testimonial-author">
-              <div class="author-info">
-                <div class="author-name">Sarah Williams</div>
-                <div class="author-role">Head of Engineering, TradePro</div>
-              </div>
-            </div>
-          </div>
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"Outstanding mobile development. The React Native app works flawlessly on both platforms and our users love the interface."</p>
-            <div class="testimonial-author">
-              <div class="author-info">
-                <div class="author-name">James Anderson</div>
-                <div class="author-role">Product Manager, MedTrack Inc</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-      <div class="container">
-        <div class="contact-content">
-          <div class="contact-info">
-            <h2>Let's Build Something Amazing</h2>
-            <p>Ready to start your next project? Get in touch with our team and let's discuss how we can help transform your business.</p>
-            <div class="contact-details">
-              <div class="contact-item">
-                <div class="contact-icon">📧</div>
-                <div>
-                  <h4>Email Us</h4>
-                  <a href="mailto:hello@datatree.tech">hello@datatree.tech</a>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div class="contact-icon">🌐</div>
-                <div>
-                  <h4>Industries</h4>
-                  <p>Healthcare & FinTech</p>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div class="contact-icon">⚡</div>
-                <div>
-                  <h4>Engagement</h4>
-                  <p>Project-based & Staff Aug</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="contact-form-container">
-            <form class="contact-form">
-              <div class="form-group">
-                <label for="name">Full Name *</label>
-                <input type="text" id="name" placeholder="Enter your name" required>
-              </div>
-              <div class="form-group">
-                <label for="email">Email Address *</label>
-                <input type="email" id="email" placeholder="your@company.com" required>
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" placeholder="+1 (555) 000-0000">
-              </div>
-              <div class="form-group">
-                <label for="budget">Project Budget</label>
-                <select id="budget">
-                  <option>$10K - $25K</option>
-                  <option>$25K - $50K</option>
-                  <option>$50K - $100K</option>
-                  <option>$100K+</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="message">Project Details</label>
-                <textarea id="message" rows="4" placeholder="Tell us about your project..."></textarea>
-              </div>
-              <div class="form-group">
-                <label for="source">How did you hear about us?</label>
-                <select id="source">
-                  <option>Search Engine</option>
-                  <option>LinkedIn</option>
-                  <option>Referral</option>
-                  <option>Tech Conference</option>
-                  <option>Other</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn-submit">Send Message</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-section">
-            <div class="footer-logo">
-              <img src="/main-logo.jpg" alt="DataTree Technology" class="logo-img footer-logo-img" />
-            </div>
-            <p>Custom software development for Healthcare and FinTech. Building the future, one line of code at a time.</p>
-          </div>
-          <div class="footer-section">
-            <h4>Services</h4>
-            <ul>
-              <li><a href="#services">Web Development</a></li>
-              <li><a href="#services">Mobile Apps</a></li>
-              <li><a href="#services">API Integration</a></li>
-              <li><a href="#services">Data Analytics</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h4>Company</h4>
-            <ul>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#portfolio">Portfolio</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#contact">Contact</a></li>
-            </ul>
-          </div>
-          <div class="footer-section">
-            <h4>Legal</h4>
-            <ul>
-              <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#">NDA</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="footer-bottom">
-          <p>&copy; 2026 DataTree Technology. Crafting digital excellence.</p>
-          <p class="tech-stack">Healthcare • FinTech • Enterprise Solutions</p>
-        </div>
-      </div>
-    </footer>
+    <Navbar />
+    <Hero />
+    <MediaNarrative />
+    <ScrollReel />
+    <Services />
+    <Industries />
+    <Testimonials />
+    <Contact />
+    <Footer />
   </div>
 </template>
 
@@ -570,7 +78,7 @@ onMounted(() => {
   if (prefersReducedMotion()) return
 
   animationContext = gsap.context(() => {
-    gsap.set('.hero-content, .hero-content > *, .hero-visual, .media-composition', {
+    gsap.set('.hero-content, .hero-content > *, .hero-visual, .media-composition, .service-card, .testimonial-card, .section-header', {
       opacity: 1
     })
 
@@ -619,18 +127,6 @@ onMounted(() => {
           clearProps: 'opacity'
         },
         '-=0.65'
-      )
-      .from(
-        '.media-tile',
-        {
-          y: 28,
-          opacity: 0,
-          scale: 0.95,
-          stagger: 0.1,
-          duration: 0.65,
-          clearProps: 'transform,opacity'
-        },
-        '-=0.35'
       )
       .from(
         '.media-composition .line',
@@ -797,7 +293,7 @@ onMounted(() => {
       })
     })
 
-    gsap.utils.toArray('.services, .industries, .portfolio-showcase, .testimonials, .contact').forEach((section) => {
+    gsap.utils.toArray('.services, .industries, .testimonials, .contact').forEach((section) => {
       gsap.fromTo(section, {
         backgroundPosition: '50% 0%'
       }, {
@@ -832,14 +328,299 @@ onMounted(() => {
       })
     }
 
-    revealOnScroll('.reel-header, .reel-panel', { y: 40, scale: 0.96, groupSize: 4 })
-    revealOnScroll('.service-card', { scale: 0.96 })
-    revealOnScroll('.narrative-copy, .media-strip .strip-item, .capability-line', { y: 38, scale: 0.98, groupSize: 3 })
+    // Advanced Timeline Animations
+    gsap.utils.toArray('.timeline-step').forEach((step) => {
+      const isLeft = step.classList.contains('step-left')
+
+      gsap.from(step.querySelector('.step-content'), {
+        x: isLeft ? -60 : 60,
+        opacity: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: step,
+          start: 'top 80%',
+          once: true
+        }
+      })
+
+      gsap.from(step.querySelector('.connector-dot'), {
+        scale: 0,
+        opacity: 0,
+        duration: 0.6,
+        delay: 0.3,
+        ease: 'back.out(2)',
+        scrollTrigger: {
+          trigger: step,
+          start: 'top 80%',
+          once: true
+        }
+      })
+
+      gsap.from(step.querySelector('.step-badge'), {
+        scale: 0,
+        rotation: -180,
+        opacity: 0,
+        duration: 0.8,
+        delay: 0.5,
+        ease: 'elastic.out(1, 0.5)',
+        scrollTrigger: {
+          trigger: step,
+          start: 'top 80%',
+          once: true
+        }
+      })
+
+      gsap.from(step.querySelectorAll('.step-features li'), {
+        x: isLeft ? -20 : 20,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.1,
+        delay: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: step,
+          start: 'top 75%',
+          once: true
+        }
+      })
+    })
+
+    // Animated timeline line drawing
+    const timelineLine = document.querySelector('.timeline-line')
+    if (timelineLine) {
+      gsap.from(timelineLine, {
+        scaleY: 0,
+        transformOrigin: 'top',
+        duration: 1.5,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.process-timeline',
+          start: 'top 70%',
+          once: true
+        }
+      })
+    }
+
+    // Services section header
+    gsap.from('.services .section-header h2', {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.services',
+        start: 'top 80%',
+        once: true
+      }
+    })
+
+    gsap.from('.services .section-header p', {
+      y: 30,
+      opacity: 0,
+      duration: 0.7,
+      delay: 0.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.services',
+        start: 'top 80%',
+        once: true
+      }
+    })
+
+    // Service cards with stagger
+    const serviceCards = gsap.utils.toArray('.service-card')
+    if (serviceCards.length > 0) {
+      gsap.from(serviceCards, {
+        y: 60,
+        opacity: 0,
+        scale: 0.9,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.services-grid',
+          start: 'top 75%',
+          once: true
+        }
+      })
+    }
+
+    // Pricing badge pulse animation
+    const pricingBadge = document.querySelector('.pricing-badge')
+    if (pricingBadge) {
+      gsap.from(pricingBadge, {
+        scale: 0,
+        opacity: 0,
+        duration: 0.6,
+        ease: 'back.out(1.7)',
+        scrollTrigger: {
+          trigger: '.pricing-highlight',
+          start: 'top 80%',
+          once: true
+        }
+      })
+
+      gsap.to('.pricing-amount', {
+        textShadow: '0 0 20px rgba(201, 198, 80, 0.6)',
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      })
+    }
+
+    // Value proposition highlights
+    gsap.from('.value-highlight', {
+      y: 20,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.15,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.value-prop',
+        start: 'top 85%',
+        once: true
+      }
+    })
+
+    // Media strip images with parallax
+    gsap.utils.toArray('.media-strip .strip-item').forEach((item, index) => {
+      const direction = index % 2 === 0 ? 1 : -1
+
+      gsap.from(item, {
+        y: 80 * direction,
+        opacity: 0,
+        scale: 0.95,
+        rotation: direction * 2,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: item,
+          start: 'top 85%',
+          once: true
+        }
+      })
+
+      // Parallax on scroll
+      gsap.to(item, {
+        y: -30 * direction,
+        scrollTrigger: {
+          trigger: '.media-strip',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1
+        }
+      })
+    })
+
+    // Tech badges floating animation
+    gsap.utils.toArray('.tech-badge').forEach((badge, index) => {
+      gsap.to(badge, {
+        y: -5,
+        duration: 2 + (index % 3) * 0.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut',
+        delay: index * 0.1
+      })
+    })
+
+
+    // Testimonials section header
+    gsap.from('.testimonials .section-header h2', {
+      y: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.testimonials',
+        start: 'top 80%',
+        once: true
+      }
+    })
+
+    gsap.from('.testimonials .section-header p', {
+      y: 30,
+      opacity: 0,
+      duration: 0.7,
+      delay: 0.2,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.testimonials',
+        start: 'top 80%',
+        once: true
+      }
+    })
+
+    // Testimonials cards
+    gsap.from('.testimonial-card', {
+      y: 60,
+      opacity: 0,
+      scale: 0.95,
+      rotation: (index) => (index % 2 === 0 ? -2 : 2),
+      duration: 0.8,
+      stagger: 0.15,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.testimonials-grid',
+        start: 'top 75%',
+        once: true
+      }
+    })
+
+    // Contact form elements
+    gsap.from('.contact-item', {
+      x: -40,
+      opacity: 0,
+      duration: 0.6,
+      stagger: 0.1,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.contact-details',
+        start: 'top 80%',
+        once: true
+      }
+    })
+
+    gsap.from('.contact-form-container', {
+      x: 40,
+      opacity: 0,
+      duration: 0.8,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '.contact-form-container',
+        start: 'top 80%',
+        once: true
+      }
+    })
+
+    gsap.from('.form-group', {
+      y: 20,
+      opacity: 0,
+      duration: 0.5,
+      stagger: 0.08,
+      ease: 'power2.out',
+      scrollTrigger: {
+        trigger: '.contact-form',
+        start: 'top 75%',
+        once: true
+      }
+    })
+
+    // Navbar scroll effect
+    const navbar = document.querySelector('.navbar')
+    if (navbar) {
+      ScrollTrigger.create({
+        start: 'top -80',
+        onEnter: () => navbar.classList.add('navbar--scrolled'),
+        onLeaveBack: () => navbar.classList.remove('navbar--scrolled')
+      })
+    }
+
+    revealOnScroll('.narrative-copy, .capability-line', { y: 38, scale: 0.98, groupSize: 3 })
     revealOnScroll('.feature-item', { y: 24, groupSize: 3 })
     revealOnScroll('.tech-category', { x: 24, y: 0, groupSize: 4 })
-    revealOnScroll('.portfolio-item', { y: 44, scale: 0.97, groupSize: 2 })
-    revealOnScroll('.testimonial-card', { y: 34, scale: 0.97, groupSize: 3 })
-    revealOnScroll('.contact-item, .contact-form-container', { y: 28, groupSize: 4 })
 
     gsap.utils.toArray('.stat-number').forEach((stat) => {
       const label = stat.textContent.trim()
@@ -878,7 +659,7 @@ onUnmounted(() => {
 })
 </script>
 
-<style scoped>
+<style>
 /* Tree Theme - Black & Dark Green */
 .landing-page {
   --logo-dark: #1a1b1f;
@@ -920,6 +701,29 @@ onUnmounted(() => {
   line-height: 1.6;
   overflow-x: hidden;
   background: var(--bg);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Improved typography defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  line-height: 1.7;
+}
+
+/* Prevent text from being too large on mobile */
+@media (max-width: 640px) {
+  .landing-page {
+    font-size: 15px;
+  }
 }
 
 .container {
@@ -939,1323 +743,5 @@ onUnmounted(() => {
   transform-origin: 0 50%;
   z-index: 2000;
   box-shadow: 0 0 18px rgba(201, 198, 80, 0.5);
-}
-
-/* Navigation */
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: rgba(26, 27, 31, 0.95);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 1px 0 var(--border);
-  z-index: 1000;
-  padding: 1rem 0;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.navbar--scrolled {
-  padding: 0.75rem 0;
-  background: rgba(17, 18, 22, 0.96);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-.navbar--scrolled .nav-links a {
-  color: white;
-}
-
-.navbar--scrolled .nav-links a:not(.btn-nav)::after {
-  background: var(--secondary);
-}
-
-.nav-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  flex: 0 0 auto;
-  height: 46px;
-  text-decoration: none;
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.logo:hover {
-  transform: scale(1.05);
-}
-
-.logo-img {
-  display: block;
-  width: auto;
-  height: 100%;
-  object-fit: contain;
-}
-
-.highlight {
-  color: var(--secondary);
-}
-
-.nav-links {
-  display: flex;
-  gap: 2rem;
-  align-items: center;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: var(--text);
-  font-weight: 500;
-  transition: color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  position: relative;
-}
-
-.nav-links a:hover {
-  color: var(--secondary);
-}
-
-.nav-links a:not(.btn-nav)::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--secondary);
-  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.nav-links a:not(.btn-nav):hover::after {
-  width: 100%;
-}
-
-.btn-nav {
-  background: var(--primary);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.btn-nav:hover {
-  background: var(--primary-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--shadow-green);
-}
-
-/* Hero Section */
-.hero {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 8rem 0 6rem;
-  overflow: hidden;
-  background: var(--bg-dark);
-}
-
-.hero-bg-gradient {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: radial-gradient(ellipse at top right, rgba(124, 179, 66, 0.15) 0%, transparent 50%),
-              radial-gradient(ellipse at bottom left, rgba(45, 80, 22, 0.12) 0%, transparent 50%);
-  z-index: -1;
-}
-
-.tree-pattern {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40%;
-  height: 100%;
-  opacity: 0.06;
-  background-image:
-    radial-gradient(circle at 20% 30%, var(--secondary) 3px, transparent 3px),
-    radial-gradient(circle at 60% 60%, var(--accent-leaf) 4px, transparent 4px),
-    radial-gradient(circle at 80% 20%, var(--secondary) 2px, transparent 2px),
-    radial-gradient(circle at 40% 80%, var(--accent-leaf) 3px, transparent 3px);
-  background-size: 100px 100px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.hero-content {
-  opacity: 1 !important;
-}
-
-.badge {
-  display: inline-block;
-  background: rgba(124, 179, 66, 0.2);
-  color: var(--secondary);
-  padding: 0.5rem 1rem;
-  border-radius: 2rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-  border: 1px solid rgba(124, 179, 66, 0.4);
-}
-
-.title {
-  font-size: 4rem;
-  font-weight: 900;
-  line-height: 1.1;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0;
-}
-
-.hero .title {
-  color: white;
-  opacity: 1;
-}
-
-.highlight-text {
-  font-weight: 900;
-}
-
-.hero .highlight-text {
-  color: var(--secondary);
-  opacity: 1;
-}
-
-.industries .highlight-text,
-.testimonials .highlight-text {
-  color: var(--primary);
-}
-
-.subtitle {
-  font-size: 1.375rem;
-  margin-bottom: 2.5rem;
-  line-height: 1.65;
-  font-weight: 400;
-}
-
-.hero .subtitle {
-  color: rgba(255, 255, 255, 0.88);
-  opacity: 1;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
-
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem 2rem;
-  border-radius: 0.75rem;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: none;
-  font-size: 1rem;
-}
-
-.btn-primary {
-  background: var(--primary);
-  color: white;
-  box-shadow: 0 4px 12px var(--shadow-green);
-}
-
-.btn-primary:hover {
-  background: var(--primary-light);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px var(--shadow-green);
-}
-
-.arrow {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 1.25rem;
-}
-
-.btn-primary:hover .arrow {
-  transform: translateX(6px);
-}
-
-.btn-secondary {
-  background: transparent;
-  color: white;
-  border: 2px solid white;
-}
-
-.btn-secondary:hover {
-  background: var(--secondary);
-  border-color: var(--secondary);
-  color: white;
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px var(--shadow-green);
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(124, 179, 66, 0.2);
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-size: 2.5rem;
-  font-weight: 900;
-  color: var(--secondary);
-  margin-bottom: 0.5rem;
-}
-
-.stat-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-}
-
-.hero .stat-label {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.media-composition {
-  position: relative;
-  min-height: 560px;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.line {
-  position: absolute;
-  background: rgba(255, 255, 255, 0.16);
-  pointer-events: none;
-}
-
-.line-horizontal {
-  top: 50%;
-  left: -8%;
-  width: 116%;
-  height: 1px;
-}
-
-.line-vertical {
-  top: 4%;
-  left: 55%;
-  width: 1px;
-  height: 92%;
-}
-
-.media-tile,
-.strip-item {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.42);
-}
-
-.media-tile::before,
-.strip-item::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.14), transparent 34%),
-    repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0 1px, transparent 1px 16px);
-  opacity: 0.85;
-  z-index: 1;
-}
-
-.media-tile img,
-.media-tile video,
-.strip-item img,
-.strip-item video,
-.reel-panel img,
-.reel-panel video {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.78;
-}
-
-.media-tile-large {
-  position: absolute;
-  top: 18%;
-  left: 3%;
-  width: 72%;
-  aspect-ratio: 16 / 10;
-}
-
-.media-tile-small {
-  position: absolute;
-  right: 0;
-  top: 2%;
-  width: 36%;
-  aspect-ratio: 4 / 3;
-}
-
-.media-tile-tall {
-  position: absolute;
-  right: 7%;
-  bottom: 0;
-  width: 34%;
-  aspect-ratio: 3 / 4;
-}
-
-.image-placeholder {
-  background:
-    linear-gradient(140deg, rgba(201, 198, 80, 0.32), transparent 48%),
-    linear-gradient(320deg, rgba(60, 88, 38, 0.7), rgba(35, 36, 42, 0.96));
-}
-
-.image-placeholder-alt {
-  background:
-    linear-gradient(160deg, rgba(255, 255, 255, 0.18), transparent 42%),
-    linear-gradient(320deg, rgba(42, 55, 72, 0.72), rgba(25, 26, 31, 0.98));
-}
-
-.video-placeholder {
-  background:
-    radial-gradient(circle at 68% 32%, rgba(201, 198, 80, 0.24), transparent 24%),
-    linear-gradient(135deg, rgba(35, 36, 42, 0.96), rgba(17, 18, 22, 0.98));
-}
-
-.media-label {
-  position: absolute;
-  left: 1rem;
-  bottom: 1rem;
-  z-index: 2;
-  color: white;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0;
-}
-
-.play-control {
-  position: absolute;
-  inset: 50% auto auto 50%;
-  z-index: 2;
-  width: 62px;
-  height: 62px;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.play-control::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 53%;
-  width: 0;
-  height: 0;
-  border-top: 9px solid transparent;
-  border-bottom: 9px solid transparent;
-  border-left: 14px solid white;
-  transform: translate(-50%, -50%);
-}
-
-.media-narrative {
-  padding: 7rem 0 8rem;
-  background: var(--bg);
-  color: white;
-  border-top: 1px solid var(--border);
-}
-
-.narrative-kicker {
-  color: var(--secondary);
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-}
-
-.narrative-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.8fr);
-  gap: 4rem;
-  align-items: end;
-  padding-bottom: 3rem;
-  border-bottom: 1px solid var(--border);
-}
-
-.narrative-copy h2 {
-  max-width: 850px;
-  font-size: clamp(2.5rem, 7vw, 6.4rem);
-  line-height: 0.96;
-  font-weight: 900;
-  letter-spacing: 0;
-}
-
-.narrative-copy p {
-  max-width: 560px;
-  margin-top: 1.5rem;
-  color: var(--text-light);
-  font-size: 1.125rem;
-}
-
-.narrative-lines {
-  display: grid;
-  gap: 1.25rem;
-}
-
-.narrative-lines span {
-  display: block;
-  height: 1px;
-  background: var(--border);
-}
-
-.media-strip {
-  display: grid;
-  grid-template-columns: 1.35fr 0.8fr 0.95fr;
-  gap: 1rem;
-  margin-top: 1rem;
-  align-items: end;
-}
-
-.strip-item {
-  min-height: 320px;
-}
-
-.strip-video {
-  min-height: 480px;
-}
-
-.capability-lines {
-  margin-top: 4rem;
-  border-top: 1px solid var(--border);
-}
-
-.capability-line {
-  display: grid;
-  grid-template-columns: 90px 1fr;
-  gap: 2rem;
-  padding: 1.4rem 0;
-  border-bottom: 1px solid var(--border);
-  color: white;
-}
-
-.capability-line span {
-  color: var(--text-lighter);
-}
-
-.capability-line strong {
-  font-size: clamp(1.5rem, 3vw, 3rem);
-  font-weight: 800;
-}
-
-.scroll-reel {
-  min-height: 100vh;
-  padding: 7rem 0;
-  background: var(--bg-dark);
-  color: white;
-  overflow: hidden;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-}
-
-.reel-header {
-  display: grid;
-  grid-template-columns: 180px 1fr;
-  gap: 2rem;
-  align-items: start;
-  margin-bottom: 3rem;
-}
-
-.reel-header span {
-  color: var(--secondary);
-  font-size: 0.8rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.reel-header h2 {
-  max-width: 900px;
-  font-size: clamp(2.4rem, 6vw, 6rem);
-  line-height: 0.95;
-  font-weight: 900;
-}
-
-.reel-viewport {
-  overflow: visible;
-  padding-left: max(2rem, calc((100vw - 1200px) / 2 + 2rem));
-}
-
-.reel-track {
-  display: flex;
-  gap: 1rem;
-  width: max-content;
-  will-change: transform;
-}
-
-.reel-panel {
-  position: relative;
-  width: min(72vw, 760px);
-  height: 58vh;
-  min-height: 420px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  border: 1px solid var(--border);
-  overflow: hidden;
-  flex: 0 0 auto;
-}
-
-.reel-panel span,
-.reel-panel h3 {
-  position: relative;
-  z-index: 2;
-}
-
-.reel-panel span {
-  color: var(--text-light);
-  font-weight: 800;
-}
-
-.reel-panel h3 {
-  max-width: 580px;
-  font-size: clamp(2rem, 4vw, 4.5rem);
-  line-height: 0.98;
-  font-weight: 900;
-}
-
-/* Services Section */
-.services {
-  padding: 8rem 0;
-  background: var(--bg-dark);
-  color: white;
-}
-
-.section-header {
-  text-align: center;
-  max-width: 700px;
-  margin: 0 auto 4rem;
-}
-
-.section-header h2 {
-  font-size: 3rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-  letter-spacing: 0;
-}
-
-.section-header p {
-  font-size: 1.25rem;
-}
-
-/* Dark sections */
-.industries .section-header h2,
-.testimonials .section-header h2 {
-  color: white;
-}
-
-.industries .section-header p,
-.testimonials .section-header p {
-  color: var(--text-light);
-}
-
-.services .section-header h2,
-.portfolio-showcase .section-header h2,
-.contact .section-header h2 {
-  color: white;
-}
-
-.services .section-header p,
-.portfolio-showcase .section-header p {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.services-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.service-card {
-  background: var(--bg-dark-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 1rem;
-  padding: 2.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-  border-color: var(--secondary);
-  background: var(--bg-dark-green);
-}
-
-.service-icon {
-  width: 72px;
-  height: 72px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  border-radius: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-  color: white;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.service-card:hover .service-icon {
-  transform: scale(1.1) rotate(5deg);
-  box-shadow: 0 8px 24px var(--shadow-green);
-}
-
-.service-card h3 {
-  font-size: 1.625rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: white;
-}
-
-.service-card p {
-  color: var(--text-light);
-  line-height: 1.7;
-  font-size: 1.0625rem;
-}
-
-/* Industries Section */
-.industries {
-  padding: 8rem 0;
-  background: var(--bg);
-  color: white;
-}
-
-.industries-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  align-items: center;
-}
-
-.section-badge {
-  display: inline-block;
-  background: rgba(201, 198, 80, 0.12);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0;
-  border: 1px solid var(--border-dark);
-}
-
-.industries-text h2 {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 1.5rem;
-  color: white;
-  letter-spacing: 0;
-}
-
-.lead {
-  font-size: 1.125rem;
-  color: var(--text-light);
-  margin-bottom: 2rem;
-  line-height: 1.7;
-}
-
-.features-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.feature-item {
-  display: flex;
-  gap: 1rem;
-}
-
-.check-icon {
-  width: 26px;
-  height: 26px;
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  flex-shrink: 0;
-  box-shadow: 0 2px 8px var(--shadow-green);
-}
-
-.feature-item h4 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  color: white;
-}
-
-.feature-item p {
-  color: var(--text-light);
-  font-size: 0.9375rem;
-}
-
-.btn-primary-solid {
-  background: var(--primary);
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 0.75rem;
-  text-decoration: none;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px var(--shadow-green);
-}
-
-.btn-primary-solid:hover {
-  background: var(--primary-light);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px var(--shadow-green);
-}
-
-/* Tech Stack */
-.tech-stack {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 8px 30px var(--shadow);
-}
-
-.tech-category {
-  margin-bottom: 2rem;
-}
-
-.tech-category:last-child {
-  margin-bottom: 0;
-}
-
-.tech-category h4 {
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: white;
-}
-
-.tech-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-}
-
-.tech-badge {
-  background: var(--surface-raised);
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 600;
-  border: 1px solid var(--border);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.tech-badge:hover {
-  background: var(--secondary);
-  color: white;
-  transform: translateY(-2px);
-  border-color: var(--secondary);
-  box-shadow: 0 4px 12px var(--shadow-green);
-}
-
-/* Portfolio Showcase */
-.portfolio-showcase {
-  padding: 8rem 0;
-  background: var(--bg-dark);
-  color: white;
-}
-
-.portfolio-showcase .section-header h2 {
-  color: white;
-}
-
-.portfolio-showcase .section-header p {
-  color: var(--text-light);
-}
-
-.portfolio-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
-  gap: 3rem;
-}
-
-.portfolio-item {
-  background: var(--bg-dark-light);
-  border-radius: 1rem;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.portfolio-item:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
-  border-color: var(--secondary);
-}
-
-.portfolio-media {
-  position: relative;
-  width: 100%;
-  padding-top: 60%;
-  background: linear-gradient(135deg, rgba(45, 80, 22, 0.25), rgba(124, 179, 66, 0.15));
-  overflow: hidden;
-}
-
-.media-placeholder {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgba(255, 255, 255, 0.3);
-}
-
-.portfolio-content {
-  padding: 2rem;
-}
-
-.portfolio-meta {
-  font-size: 0.875rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--secondary);
-  margin-bottom: 0.75rem;
-}
-
-.portfolio-item h3 {
-  font-size: 1.75rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  color: white;
-}
-
-.portfolio-item p {
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-  font-size: 1.0625rem;
-}
-
-.portfolio-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.portfolio-link:hover {
-  color: var(--secondary);
-  gap: 0.75rem;
-}
-
-.portfolio-link .arrow {
-  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.portfolio-link:hover .arrow {
-  transform: translateX(4px);
-}
-
-/* Testimonials */
-.testimonials {
-  padding: 8rem 0;
-  background: var(--bg);
-  color: white;
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2rem;
-}
-
-.testimonial-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 2.5rem;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.testimonial-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
-  border-color: var(--secondary);
-}
-
-.stars {
-  color: #fbbf24;
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-}
-
-.testimonial-text {
-  color: var(--text-light);
-  font-size: 1rem;
-  line-height: 1.7;
-  margin-bottom: 1.5rem;
-  font-style: italic;
-}
-
-.author-name {
-  font-weight: 700;
-  color: white;
-  margin-bottom: 0.25rem;
-}
-
-.author-role {
-  font-size: 0.875rem;
-  color: var(--text-light);
-}
-
-/* Contact Section */
-.contact {
-  padding: 8rem 0;
-  background: var(--bg-dark);
-  color: white;
-}
-
-.contact-content {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-}
-
-.contact-info h2 {
-  font-size: 2.5rem;
-  font-weight: 900;
-  margin-bottom: 1rem;
-  color: white;
-  letter-spacing: 0;
-}
-
-.contact-info > p {
-  color: rgba(255, 255, 255, 0.8);
-  font-size: 1.125rem;
-  margin-bottom: 2rem;
-  line-height: 1.7;
-}
-
-.contact-details {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.contact-item {
-  display: flex;
-  gap: 1rem;
-  align-items: start;
-}
-
-.contact-icon {
-  font-size: 1.5rem;
-}
-
-.contact-item h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
-  color: white;
-}
-
-.contact-item p,
-.contact-item a {
-  color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contact-item a:hover {
-  color: var(--secondary);
-}
-
-/* Contact Form */
-.contact-form-container {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 2rem;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-weight: 600;
-  color: white;
-  font-size: 0.875rem;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-  background: var(--bg-dark);
-  color: white;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border);
-  border-radius: 0.5rem;
-  font-size: 1rem;
-  font-family: inherit;
-  transition: all 0.3s ease;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-  color: rgba(255, 255, 255, 0.42);
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-  outline: none;
-  border-color: var(--secondary);
-  box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.15);
-}
-
-.btn-submit {
-  background: var(--primary);
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 0.75rem;
-  border: none;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 4px 12px var(--shadow-green);
-}
-
-.btn-submit:hover {
-  background: var(--primary-light);
-  transform: translateY(-3px);
-  box-shadow: 0 12px 32px var(--shadow-green);
-}
-
-/* Footer */
-.footer {
-  background: var(--bg-dark);
-  color: white;
-  padding: 4rem 0 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.footer-content {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 3rem;
-  margin-bottom: 3rem;
-}
-
-.footer-logo {
-  display: flex;
-  align-items: center;
-  height: 52px;
-  margin-bottom: 1rem;
-}
-
-.footer-logo-img {
-  border-radius: 4px;
-}
-
-.footer-section p {
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.7;
-}
-
-.footer-section h4 {
-  font-size: 1.125rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: white;
-}
-
-.footer-section ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.footer-section ul a {
-  color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-section ul a:hover {
-  color: var(--secondary);
-}
-
-.footer-bottom {
-  text-align: center;
-  padding-top: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.tech-stack {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  opacity: 0.7;
-}
-
-/* Responsive Design */
-@media (max-width: 968px) {
-  .hero .container,
-  .industries-content,
-  .contact-content {
-    grid-template-columns: 1fr;
-  }
-
-  .media-composition {
-    min-height: 520px;
-  }
-
-  .narrative-grid,
-  .media-strip {
-    grid-template-columns: 1fr;
-  }
-
-  .reel-header {
-    grid-template-columns: 1fr;
-  }
-
-  .reel-viewport {
-    padding: 0 2rem;
-  }
-
-  .reel-track {
-    width: 100%;
-    flex-direction: column;
-  }
-
-  .reel-panel {
-    width: 100%;
-    height: auto;
-    min-height: 360px;
-  }
-
-  .strip-item,
-  .strip-video {
-    min-height: 320px;
-  }
-
-  .nav-links {
-    display: none;
-  }
-
-  .title {
-    font-size: 2.5rem;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .footer-content {
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-  }
-
-  .portfolio-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .title {
-    font-size: 2rem;
-  }
-
-  .services-grid,
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .footer-content {
-    grid-template-columns: 1fr;
-  }
-
-  .cta-buttons {
-    flex-direction: column;
-  }
-
-  .btn {
-    width: 100%;
-    justify-content: center;
-  }
-
-  .media-composition {
-    min-height: 430px;
-  }
-
-  .media-tile-large {
-    width: 82%;
-    left: 0;
-  }
-
-  .media-tile-small {
-    width: 42%;
-  }
-
-  .media-tile-tall {
-    width: 42%;
-    right: 0;
-  }
-
-  .media-narrative {
-    padding: 5rem 0;
-  }
-
-  .capability-line {
-    grid-template-columns: 54px 1fr;
-  }
 }
 </style>
