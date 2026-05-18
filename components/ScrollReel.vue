@@ -3,9 +3,9 @@
     <div class="container process-layout">
       <div class="process-intro">
         <span class="section-kicker">Our Process</span>
-        <h2>Scroll through the build, side by side.</h2>
+        <h2>An organized, agile way to build software.</h2>
         <p>
-          Each phase sits next to the next. As you scroll, the row moves horizontally and reveals the journey from discovery to launch.
+          We break the build into clear stages, align on deliverables early, and keep every milestone moving as planned.
         </p>
 
         <div class="process-progress" aria-hidden="true">

@@ -75,6 +75,9 @@ let treeAnimationFrame = 0
 let treeDanceFrame = 0
 let handleTreeResize
 let handleTreeScroll
+let handleTreeViewportChange
+let treeViewportQuery
+let treeCanvasRunning = false
 
 // Refs for new interactive elements
 const treeCanvas = ref(null)
@@ -95,18 +98,18 @@ const branchScale = (depth, side) => 0.66 + ((depth * 17 + side * 7) % 8) / 100
 
 const getTreeProgress = () => {
   const earlyScrollRange = window.innerHeight * 2.2
-  return clamp(0.16 + window.scrollY / earlyScrollRange, 0.16, 1)
+  return clamp(0.22 + window.scrollY / earlyScrollRange, 0.22, 1)
 }
 
 const getPageScrollProgress = () => {
   const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
-  if (scrollHeight <= 0) return 0
-  return clamp(window.scrollY / scrollHeight, 0, 1)
+  if (scrollHeight <= 0) return 0.04
+  return clamp(0.04 + (window.scrollY / scrollHeight) * 0.96, 0.04, 1)
 }
 
 const getSnakePoint = (width, height, index, total, dancePhase) => {
   const t = index / (total - 1)
-  const y = -height * 0.08 + t * height * 1.16
+  const y = -height * 0.015 + t * height * 1.1
   const baseX = width * 0.5
   const broadWave = Math.sin(t * Math.PI * 2.35 + dancePhase * 0.18) * width * 0.32
   const secondaryWave = Math.sin(t * Math.PI * 5.1 + dancePhase * 0.12) * width * 0.035
@@ -135,9 +138,9 @@ const drawSnakeBranch = (ctx, width, height, scrollProgress, dancePhase) => {
   }
 
   const branchGradient = ctx.createLinearGradient(width * 0.12, 0, width * 0.88, height)
-  branchGradient.addColorStop(0, `rgba(240, 235, 102, ${0.28 + scrollProgress * 0.1})`)
-  branchGradient.addColorStop(0.52, `rgba(201, 198, 80, ${0.24 + scrollProgress * 0.1})`)
-  branchGradient.addColorStop(1, `rgba(124, 179, 66, ${0.18 + scrollProgress * 0.08})`)
+  branchGradient.addColorStop(0, `rgba(240, 235, 102, ${0.34 + scrollProgress * 0.1})`)
+  branchGradient.addColorStop(0.52, `rgba(201, 198, 80, ${0.3 + scrollProgress * 0.1})`)
+  branchGradient.addColorStop(1, `rgba(124, 179, 66, ${0.22 + scrollProgress * 0.08})`)
 
   ctx.save()
   ctx.lineCap = 'round'
@@ -292,27 +295,72 @@ const animateTreeDance = (timestamp) => {
   treeDanceFrame = requestAnimationFrame(animateTreeDance)
 }
 
+const startTreeCanvas = () => {
+  if (treeCanvasRunning || !treeCanvas.value) return
+
+  treeCanvasRunning = true
+  initTreeCanvas()
+  renderTree()
+  treeDanceFrame = requestAnimationFrame(animateTreeDance)
+
+  handleTreeResize = () => {
+    initTreeCanvas()
+    renderTree()
+  }
+  handleTreeScroll = () => {
+    renderTree()
+  }
+
+  window.addEventListener('resize', handleTreeResize, { passive: true })
+  window.addEventListener('scroll', handleTreeScroll, { passive: true })
+}
+
+const stopTreeCanvas = () => {
+  if (!treeCanvasRunning) return
+
+  if (treeAnimationFrame) {
+    cancelAnimationFrame(treeAnimationFrame)
+    treeAnimationFrame = 0
+  }
+
+  if (treeDanceFrame) {
+    cancelAnimationFrame(treeDanceFrame)
+    treeDanceFrame = 0
+  }
+
+  if (handleTreeResize) {
+    window.removeEventListener('resize', handleTreeResize)
+    handleTreeResize = undefined
+  }
+
+  if (handleTreeScroll) {
+    window.removeEventListener('scroll', handleTreeScroll)
+    handleTreeScroll = undefined
+  }
+
+  treeCanvasRunning = false
+  treeCtx = null
+}
+
 // GSAP Animations
 onMounted(() => {
   if (prefersReducedMotion()) return
 
-  const desktopMotion = window.matchMedia('(min-width: 969px)').matches
+  treeViewportQuery = window.matchMedia('(min-width: 969px)')
+  const desktopMotion = treeViewportQuery.matches
 
-  if (desktopMotion) {
-    initTreeCanvas()
-    renderTree()
-    treeDanceFrame = requestAnimationFrame(animateTreeDance)
+  if (desktopMotion) startTreeCanvas()
 
-    handleTreeResize = () => {
-      initTreeCanvas()
-      renderTree()
+  handleTreeViewportChange = (event) => {
+    if (event.matches) {
+      startTreeCanvas()
+      return
     }
-    handleTreeScroll = () => {
-      renderTree()
-    }
-    window.addEventListener('resize', handleTreeResize, { passive: true })
-    window.addEventListener('scroll', handleTreeScroll, { passive: true })
+
+    stopTreeCanvas()
   }
+
+  treeViewportQuery.addEventListener('change', handleTreeViewportChange)
 
   animationContext = gsap.context(() => {
     gsap.set('.hero-content, .hero-content > *, .hero-visual, .media-composition, .service-card, .testimonial-card, .section-header', {
@@ -1051,21 +1099,11 @@ onUnmounted(() => {
     window.removeEventListener('mousemove', heroPointerMove)
   }
 
-  if (handleTreeResize) {
-    window.removeEventListener('resize', handleTreeResize)
+  if (treeViewportQuery && handleTreeViewportChange) {
+    treeViewportQuery.removeEventListener('change', handleTreeViewportChange)
   }
 
-  if (handleTreeScroll) {
-    window.removeEventListener('scroll', handleTreeScroll)
-  }
-
-  if (treeAnimationFrame) {
-    cancelAnimationFrame(treeAnimationFrame)
-  }
-
-  if (treeDanceFrame) {
-    cancelAnimationFrame(treeDanceFrame)
-  }
+  stopTreeCanvas()
 
   animationContext?.revert()
 })
@@ -1174,7 +1212,7 @@ p {
   height: 100vh;
   pointer-events: none;
   z-index: 25;
-  opacity: 0.22;
+  opacity: 0.28;
   mix-blend-mode: screen;
 }
 
