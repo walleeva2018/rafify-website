@@ -209,6 +209,49 @@
 @media (max-width: 968px) {
   .contact-content {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .contact {
+    padding: 4.5rem 0;
+  }
+
+  .contact-info h2 {
+    font-size: 2rem;
+    line-height: 1.15;
+  }
+
+  .contact-info > p {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .contact-details {
+    gap: 1rem;
+  }
+
+  .contact-form-container {
+    padding: 1.1rem;
+    border-radius: 0.75rem;
+  }
+
+  .contact-form {
+    gap: 1rem;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    font-size: 16px;
+    min-height: 46px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    min-height: 48px;
   }
 }
 </style>

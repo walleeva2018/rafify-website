@@ -123,8 +123,31 @@
 }
 
 @media (max-width: 640px) {
+  .footer {
+    padding: 3rem 0 1.5rem;
+  }
+
   .footer-content {
     grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .footer-logo {
+    height: 44px;
+  }
+
+  .footer-section h4 {
+    margin-bottom: 0.7rem;
+  }
+
+  .footer-section ul {
+    gap: 0.5rem;
+  }
+
+  .footer-bottom {
+    padding-top: 1.4rem;
+    text-align: left;
   }
 }
 </style>

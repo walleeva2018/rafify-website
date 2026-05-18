@@ -155,8 +155,42 @@
 }
 
 @media (max-width: 640px) {
+  .services {
+    padding: 4.5rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+  }
+
+  .section-header p {
+    font-size: 1rem;
+  }
+
   .services-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .service-card {
+    padding: 1.35rem;
+    border-radius: 0.75rem;
+  }
+
+  .service-icon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 1rem;
+  }
+
+  .service-icon svg {
+    width: 34px;
+    height: 34px;
   }
 }
 </style>

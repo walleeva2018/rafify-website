@@ -71,6 +71,10 @@ useHead({
 
 let animationContext
 let heroPointerMove
+let treeAnimationFrame = 0
+let treeDanceFrame = 0
+let handleTreeResize
+let handleTreeScroll
 
 // Refs for new interactive elements
 const treeCanvas = ref(null)
@@ -81,8 +85,116 @@ const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
+const clamp = (value, min, max) => Math.min(Math.max(value, min), max)
+const branchLean = (depth, side, dancePhase) => {
+  const baseLean = 0.3 + ((depth * 31 + side * 13) % 10) / 100
+  const sway = Math.sin(dancePhase + depth * 0.72 + side * 1.4) * (0.035 + depth * 0.002)
+  return baseLean + sway
+}
+const branchScale = (depth, side) => 0.66 + ((depth * 17 + side * 7) % 8) / 100
+
+const getTreeProgress = () => {
+  const earlyScrollRange = window.innerHeight * 2.2
+  return clamp(0.16 + window.scrollY / earlyScrollRange, 0.16, 1)
+}
+
+const getPageScrollProgress = () => {
+  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
+  if (scrollHeight <= 0) return 0
+  return clamp(window.scrollY / scrollHeight, 0, 1)
+}
+
+const getSnakePoint = (width, height, index, total, dancePhase) => {
+  const t = index / (total - 1)
+  const y = -height * 0.08 + t * height * 1.16
+  const baseX = width * 0.5
+  const broadWave = Math.sin(t * Math.PI * 2.35 + dancePhase * 0.18) * width * 0.32
+  const secondaryWave = Math.sin(t * Math.PI * 5.1 + dancePhase * 0.12) * width * 0.035
+  return {
+    x: clamp(baseX + broadWave + secondaryWave, width * 0.12, width * 0.88),
+    y
+  }
+}
+
+const drawSnakeBranch = (ctx, width, height, scrollProgress, dancePhase) => {
+  const pointCount = 96
+  const points = Array.from({ length: pointCount }, (_, index) =>
+    getSnakePoint(width, height, index, pointCount, dancePhase)
+  )
+  const visibleCount = Math.max(2, Math.floor((pointCount - 1) * scrollProgress) + 1)
+  const visiblePoints = points.slice(0, visibleCount)
+  const partialProgress = (scrollProgress * (pointCount - 1)) % 1
+
+  if (visibleCount < pointCount && visiblePoints.length > 1) {
+    const current = visiblePoints[visiblePoints.length - 1]
+    const next = points[visibleCount]
+    visiblePoints[visiblePoints.length - 1] = {
+      x: current.x + (next.x - current.x) * partialProgress,
+      y: current.y + (next.y - current.y) * partialProgress
+    }
+  }
+
+  const branchGradient = ctx.createLinearGradient(width * 0.12, 0, width * 0.88, height)
+  branchGradient.addColorStop(0, `rgba(240, 235, 102, ${0.28 + scrollProgress * 0.1})`)
+  branchGradient.addColorStop(0.52, `rgba(201, 198, 80, ${0.24 + scrollProgress * 0.1})`)
+  branchGradient.addColorStop(1, `rgba(124, 179, 66, ${0.18 + scrollProgress * 0.08})`)
+
+  ctx.save()
+  ctx.lineCap = 'round'
+  ctx.lineJoin = 'round'
+  ctx.strokeStyle = branchGradient
+  ctx.lineWidth = Math.max(2.5, width * 0.0035)
+  ctx.shadowColor = 'rgba(201, 198, 80, 0.2)'
+  ctx.shadowBlur = 12
+
+  ctx.beginPath()
+  visiblePoints.forEach((point, index) => {
+    if (index === 0) {
+      ctx.moveTo(point.x, point.y)
+      return
+    }
+    const previous = visiblePoints[index - 1]
+    const midX = (previous.x + point.x) / 2
+    const midY = (previous.y + point.y) / 2
+    ctx.quadraticCurveTo(previous.x, previous.y, midX, midY)
+  })
+  ctx.stroke()
+
+  ctx.shadowBlur = 0
+  ctx.lineWidth = Math.max(1, width * 0.0014)
+  ctx.strokeStyle = `rgba(240, 235, 102, ${0.18 + scrollProgress * 0.1})`
+  ctx.fillStyle = `rgba(240, 235, 102, ${0.2 + scrollProgress * 0.1})`
+
+  for (let i = 9; i < visiblePoints.length - 3; i += 9) {
+    const point = visiblePoints[i]
+    const next = visiblePoints[i + 1]
+    const direction = i % 2 === 0 ? 1 : -1
+    const angle = Math.atan2(next.y - point.y, next.x - point.x) + direction * 1.05
+    const branchLength = height * (0.045 + (i % 3) * 0.006)
+    const sway = Math.sin(dancePhase + i) * 0.12
+    const endX = point.x + Math.cos(angle + sway) * branchLength
+    const endY = point.y + Math.sin(angle + sway) * branchLength
+
+    ctx.beginPath()
+    ctx.moveTo(point.x, point.y)
+    ctx.quadraticCurveTo(
+      point.x + Math.cos(angle + sway) * branchLength * 0.5,
+      point.y + Math.sin(angle + sway) * branchLength * 0.45,
+      endX,
+      endY
+    )
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.ellipse(endX, endY, 3.2, 1.8, angle + sway, 0, Math.PI * 2)
+    ctx.fill()
+  }
+
+  ctx.restore()
+}
+
 // Draw organic growing tree
-const drawTree = (ctx, x, y, length, angle, depth, scrollProgress) => {
+const drawTree = (ctx, x, y, length, angle, depth, scrollProgress, dancePhase) => {
   if (depth === 0 || length < 2) return
 
   const endX = x + length * Math.cos(angle)
@@ -114,12 +226,8 @@ const drawTree = (ctx, x, y, length, angle, depth, scrollProgress) => {
     ctx.fill()
   }
 
-  // Recursive branching with organic variation
-  const angleVariation = 0.3 + Math.random() * 0.2
-  const lengthVariation = 0.67 + Math.random() * 0.1
-
-  drawTree(ctx, endX, endY, length * lengthVariation, angle - angleVariation, depth - 1, scrollProgress)
-  drawTree(ctx, endX, endY, length * lengthVariation, angle + angleVariation, depth - 1, scrollProgress)
+  drawTree(ctx, endX, endY, length * branchScale(depth, -1), angle - branchLean(depth, -1, dancePhase), depth - 1, scrollProgress, dancePhase)
+  drawTree(ctx, endX, endY, length * branchScale(depth, 1), angle + branchLean(depth, 1, dancePhase), depth - 1, scrollProgress, dancePhase)
 }
 
 // Initialize and animate tree canvas
@@ -135,22 +243,24 @@ const initTreeCanvas = () => {
   canvas.style.height = `${window.innerHeight}px`
 
   treeCtx = canvas.getContext('2d')
+  treeCtx.setTransform(1, 0, 0, 1, 0, 0)
   treeCtx.scale(dpr, dpr)
 }
 
-const animateTree = () => {
+const renderTree = (timestamp = performance.now()) => {
   if (!treeCtx || !treeCanvas.value) return
 
   const canvas = treeCanvas.value
   treeCtx.clearRect(0, 0, canvas.width, canvas.height)
 
-  // Calculate scroll progress
-  const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
-  const scrolled = window.scrollY
-  const scrollProgress = Math.min(scrolled / scrollHeight, 1)
+  const scrollProgress = getTreeProgress()
+  const snakeProgress = getPageScrollProgress()
+  const dancePhase = timestamp * 0.0014
 
   // Update tree growth based on scroll
   treeGrowth = scrollProgress
+
+  drawSnakeBranch(treeCtx, window.innerWidth, window.innerHeight, snakeProgress, dancePhase)
 
   // Draw multiple trees at different positions (growing from bottom to top)
   const trees = [
@@ -162,30 +272,46 @@ const animateTree = () => {
   trees.forEach(tree => {
     const growthDepth = Math.floor(tree.depth * scrollProgress)
     if (growthDepth > 0) {
-      drawTree(treeCtx, tree.x, tree.y, 60 * scrollProgress, -Math.PI / 2, growthDepth, scrollProgress)
+      const rootSway = Math.sin(dancePhase + tree.x * 0.01) * 0.075
+      drawTree(treeCtx, tree.x, tree.y, 60 * scrollProgress, -Math.PI / 2 + rootSway, growthDepth, scrollProgress, dancePhase)
     }
   })
 
-  requestAnimationFrame(animateTree)
+}
+
+const scheduleTreeRender = () => {
+  if (treeAnimationFrame) return
+  treeAnimationFrame = requestAnimationFrame((timestamp) => {
+    treeAnimationFrame = 0
+    renderTree(timestamp)
+  })
+}
+
+const animateTreeDance = (timestamp) => {
+  renderTree(timestamp)
+  treeDanceFrame = requestAnimationFrame(animateTreeDance)
 }
 
 // GSAP Animations
 onMounted(() => {
   if (prefersReducedMotion()) return
 
-  // Initialize new interactive features
-  initTreeCanvas()
-  animateTree()
+  const desktopMotion = window.matchMedia('(min-width: 969px)').matches
 
-  // Handle resize
-  const handleResize = () => {
+  if (desktopMotion) {
     initTreeCanvas()
-  }
-  window.addEventListener('resize', handleResize)
+    renderTree()
+    treeDanceFrame = requestAnimationFrame(animateTreeDance)
 
-  // Cleanup function stored for unmount
-  window.__cleanupIntervals = () => {
-    window.removeEventListener('resize', handleResize)
+    handleTreeResize = () => {
+      initTreeCanvas()
+      renderTree()
+    }
+    handleTreeScroll = () => {
+      renderTree()
+    }
+    window.addEventListener('resize', handleTreeResize, { passive: true })
+    window.addEventListener('scroll', handleTreeScroll, { passive: true })
   }
 
   animationContext = gsap.context(() => {
@@ -252,35 +378,37 @@ onMounted(() => {
         '-=0.5'
       )
 
-    gsap.to('.media-composition', {
-      y: -12,
-      duration: 3.2,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut'
-    })
-
-    heroPointerMove = (event) => {
-      const { innerWidth, innerHeight } = window
-      const x = (event.clientX / innerWidth - 0.5) * 14
-      const y = (event.clientY / innerHeight - 0.5) * -10
-
+    if (desktopMotion) {
       gsap.to('.media-composition', {
-        rotateY: x,
-        rotateX: y,
-        duration: 0.7,
-        ease: 'power2.out'
+        y: -12,
+        duration: 3.2,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
       })
 
-      gsap.to('.tree-pattern', {
-        x: x * 1.6,
-        y: y * 1.6,
-        duration: 1,
-        ease: 'power2.out'
-      })
+      heroPointerMove = (event) => {
+        const { innerWidth, innerHeight } = window
+        const x = (event.clientX / innerWidth - 0.5) * 14
+        const y = (event.clientY / innerHeight - 0.5) * -10
+
+        gsap.to('.media-composition', {
+          rotateY: x,
+          rotateX: y,
+          duration: 0.7,
+          ease: 'power2.out'
+        })
+
+        gsap.to('.tree-pattern', {
+          x: x * 1.6,
+          y: y * 1.6,
+          duration: 1,
+          ease: 'power2.out'
+        })
+      }
+
+      window.addEventListener('mousemove', heroPointerMove)
     }
-
-    window.addEventListener('mousemove', heroPointerMove)
 
     gsap.timeline({
       scrollTrigger: {
@@ -439,79 +567,103 @@ onMounted(() => {
       })
     }
 
-    // Advanced Timeline Animations
-    gsap.utils.toArray('.timeline-step').forEach((step) => {
-      const isLeft = step.classList.contains('step-left')
+    ScrollTrigger.matchMedia({
+      '(min-width: 969px)': () => {
+        const processTrack = document.querySelector('.process-track')
+        const processViewport = document.querySelector('.process-viewport')
+        const processSteps = gsap.utils.toArray('.timeline-step')
 
-      gsap.from(step.querySelector('.step-content'), {
-        x: isLeft ? -60 : 60,
-        opacity: 0,
-        duration: 1,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: step,
-          start: 'top 80%',
-          once: true
-        }
-      })
+        if (!processTrack || !processViewport || processSteps.length === 0) return
 
-      gsap.from(step.querySelector('.connector-dot'), {
-        scale: 0,
-        opacity: 0,
-        duration: 0.6,
-        delay: 0.3,
-        ease: 'back.out(2)',
-        scrollTrigger: {
-          trigger: step,
-          start: 'top 80%',
-          once: true
-        }
-      })
+        const processDistance = () => Math.max(0, processTrack.scrollWidth - processViewport.clientWidth)
 
-      gsap.from(step.querySelector('.step-badge'), {
-        scale: 0,
-        rotation: -180,
-        opacity: 0,
-        duration: 0.8,
-        delay: 0.5,
-        ease: 'elastic.out(1, 0.5)',
-        scrollTrigger: {
-          trigger: step,
-          start: 'top 80%',
-          once: true
-        }
-      })
+        const processTween = gsap.to(processTrack, {
+          x: () => -processDistance(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.scroll-reel',
+            start: 'top top',
+            end: () => `+=${processDistance() + window.innerHeight * 0.85}`,
+            scrub: 0.7,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true
+          }
+        })
 
-      gsap.from(step.querySelectorAll('.step-features li'), {
-        x: isLeft ? -20 : 20,
-        opacity: 0,
-        duration: 0.5,
-        stagger: 0.1,
-        delay: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: step,
-          start: 'top 75%',
-          once: true
-        }
-      })
+        gsap.to('.process-progress-fill, .timeline-line', {
+          scaleX: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.scroll-reel',
+            start: 'top top',
+            end: () => `+=${processDistance() + window.innerHeight * 0.85}`,
+            scrub: 0.7,
+            invalidateOnRefresh: true
+          }
+        })
+
+        processSteps.forEach((step) => {
+          const content = step.querySelector('.step-content')
+          const features = step.querySelectorAll('.step-features li')
+
+          gsap.to(content, {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: step,
+              containerAnimation: processTween,
+              start: 'left 62%',
+              end: 'left 34%',
+              scrub: 0.5
+            }
+          })
+
+          gsap.from(features, {
+            x: 18,
+            opacity: 0,
+            stagger: 0.08,
+            duration: 0.45,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: step,
+              containerAnimation: processTween,
+              start: 'left 58%',
+              once: true
+            }
+          })
+
+          ScrollTrigger.create({
+            trigger: step,
+            containerAnimation: processTween,
+            start: 'left center',
+            end: 'right center',
+            toggleClass: {
+              targets: step,
+              className: 'is-active'
+            }
+          })
+        })
+      },
+      '(max-width: 968px)': () => {
+        gsap.utils.toArray('.timeline-step').forEach((step) => {
+          gsap.to(step.querySelector('.step-content'), {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: step,
+              start: 'top 82%',
+              once: true
+            }
+          })
+        })
+      }
     })
-
-    // Animated timeline line drawing
-    const timelineLine = document.querySelector('.timeline-line')
-    if (timelineLine) {
-      gsap.from(timelineLine, {
-        scaleY: 0,
-        transformOrigin: 'top',
-        duration: 1.5,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.process-timeline',
-          start: 'top 70%',
-          once: true
-        }
-      })
-    }
 
     // Services section header
     gsap.from('.services .section-header h2', {
@@ -560,56 +712,58 @@ onMounted(() => {
           }
         })
 
-        // Scroll-based 3D tilt effect
-        gsap.to(card, {
-          rotationX: 5,
-          rotationY: index % 2 === 0 ? 3 : -3,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top bottom',
-            end: 'bottom top',
-            scrub: 1
-          }
-        })
-
-        // Add magnetic hover effect
-        card.addEventListener('mouseenter', () => {
+        if (desktopMotion) {
+          // Scroll-based 3D tilt effect
           gsap.to(card, {
-            scale: 1.05,
-            rotationX: 0,
-            rotationY: 0,
-            z: 50,
-            duration: 0.4,
-            ease: 'power2.out'
+            rotationX: 5,
+            rotationY: index % 2 === 0 ? 3 : -3,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1
+            }
           })
-        })
 
-        card.addEventListener('mouseleave', () => {
-          gsap.to(card, {
-            scale: 1,
-            z: 0,
-            duration: 0.4,
-            ease: 'power2.out'
+          // Add magnetic hover effect
+          card.addEventListener('mouseenter', () => {
+            gsap.to(card, {
+              scale: 1.05,
+              rotationX: 0,
+              rotationY: 0,
+              z: 50,
+              duration: 0.4,
+              ease: 'power2.out'
+            })
           })
-        })
 
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect()
-          const x = e.clientX - rect.left
-          const y = e.clientY - rect.top
-          const centerX = rect.width / 2
-          const centerY = rect.height / 2
-          const rotateX = (y - centerY) / 10
-          const rotateY = (centerX - x) / 10
-
-          gsap.to(card, {
-            rotationX: -rotateX,
-            rotationY: rotateY,
-            duration: 0.3,
-            ease: 'power2.out'
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, {
+              scale: 1,
+              z: 0,
+              duration: 0.4,
+              ease: 'power2.out'
+            })
           })
-        })
+
+          card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect()
+            const x = e.clientX - rect.left
+            const y = e.clientY - rect.top
+            const centerX = rect.width / 2
+            const centerY = rect.height / 2
+            const rotateX = (y - centerY) / 10
+            const rotateY = (centerX - x) / 10
+
+            gsap.to(card, {
+              rotationX: -rotateX,
+              rotationY: rotateY,
+              duration: 0.3,
+              ease: 'power2.out'
+            })
+          })
+        }
       })
     }
 
@@ -669,16 +823,18 @@ onMounted(() => {
         }
       })
 
-      // Parallax on scroll
-      gsap.to(item, {
-        y: -30 * direction,
-        scrollTrigger: {
-          trigger: '.media-strip',
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1
-        }
-      })
+      if (desktopMotion) {
+        // Parallax on scroll
+        gsap.to(item, {
+          y: -30 * direction,
+          scrollTrigger: {
+            trigger: '.media-strip',
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1
+          }
+        })
+      }
     })
 
     // Tech badges floating animation
@@ -739,37 +895,39 @@ onMounted(() => {
         }
       })
 
-      // Parallax effect on scroll
-      gsap.to(card, {
-        y: index % 2 === 0 ? -30 : 30,
-        rotation: index % 2 === 0 ? 2 : -2,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: 1.5
-        }
-      })
-
-      // Hover glow effect
-      card.addEventListener('mouseenter', () => {
+      if (desktopMotion) {
+        // Parallax effect on scroll
         gsap.to(card, {
-          scale: 1.03,
-          boxShadow: '0 20px 60px rgba(201, 198, 80, 0.3)',
-          duration: 0.3,
-          ease: 'power2.out'
+          y: index % 2 === 0 ? -30 : 30,
+          rotation: index % 2 === 0 ? 2 : -2,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5
+          }
         })
-      })
 
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          scale: 1,
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
-          duration: 0.3,
-          ease: 'power2.out'
+        // Hover glow effect
+        card.addEventListener('mouseenter', () => {
+          gsap.to(card, {
+            scale: 1.03,
+            boxShadow: '0 20px 60px rgba(201, 198, 80, 0.3)',
+            duration: 0.3,
+            ease: 'power2.out'
+          })
         })
-      })
+
+        card.addEventListener('mouseleave', () => {
+          gsap.to(card, {
+            scale: 1,
+            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+            duration: 0.3,
+            ease: 'power2.out'
+          })
+        })
+      }
     })
 
     // Contact form elements
@@ -893,8 +1051,20 @@ onUnmounted(() => {
     window.removeEventListener('mousemove', heroPointerMove)
   }
 
-  if (window.__cleanupIntervals) {
-    window.__cleanupIntervals()
+  if (handleTreeResize) {
+    window.removeEventListener('resize', handleTreeResize)
+  }
+
+  if (handleTreeScroll) {
+    window.removeEventListener('scroll', handleTreeScroll)
+  }
+
+  if (treeAnimationFrame) {
+    cancelAnimationFrame(treeAnimationFrame)
+  }
+
+  if (treeDanceFrame) {
+    cancelAnimationFrame(treeDanceFrame)
   }
 
   animationContext?.revert()
@@ -966,6 +1136,14 @@ p {
   .landing-page {
     font-size: 15px;
   }
+
+  .container {
+    padding: 0 1rem;
+  }
+
+  .scroll-progress {
+    height: 2px;
+  }
 }
 
 .container {
@@ -995,9 +1173,15 @@ p {
   width: 100%;
   height: 100vh;
   pointer-events: none;
-  z-index: 1;
-  opacity: 0.4;
+  z-index: 25;
+  opacity: 0.22;
   mix-blend-mode: screen;
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 0 1rem;
+  }
 }
 
 /* Enhanced scroll-based background gradients */
@@ -1035,6 +1219,12 @@ p {
 @media (max-width: 968px) {
   .tree-canvas {
     display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .landing-page {
+    animation: none;
   }
 }
 

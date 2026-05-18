@@ -1,84 +1,95 @@
 <template>
   <section class="scroll-reel">
-    <div class="container">
-      <div class="reel-header">
+    <div class="container process-layout">
+      <div class="process-intro">
         <span class="section-kicker">Our Process</span>
-        <h2>From idea to launch in 4 simple steps</h2>
+        <h2>Scroll through the build, side by side.</h2>
+        <p>
+          Each phase sits next to the next. As you scroll, the row moves horizontally and reveals the journey from discovery to launch.
+        </p>
+
+        <div class="process-progress" aria-hidden="true">
+          <span class="progress-label">Build progress</span>
+          <span class="progress-track">
+            <span class="process-progress-fill"></span>
+          </span>
+        </div>
       </div>
 
-      <div class="process-timeline">
+      <div class="process-viewport">
         <div class="timeline-line" aria-hidden="true"></div>
-
-        <div class="timeline-step step-left">
-          <div class="step-content">
-            <div class="step-badge">
-              <span class="step-number">01</span>
+        <div class="process-track">
+          <article class="timeline-step">
+            <div class="step-connector">
+              <div class="connector-dot"></div>
             </div>
-            <h3>Discovery & Planning</h3>
-            <p>We analyze your needs, define project scope, and create a budget-friendly roadmap tailored to your goals.</p>
-            <ul class="step-features">
-              <li>Requirements gathering</li>
-              <li>Budget optimization</li>
-              <li>Timeline planning</li>
-            </ul>
-          </div>
-          <div class="step-connector">
-            <div class="connector-dot"></div>
-          </div>
-        </div>
-
-        <div class="timeline-step step-right">
-          <div class="step-connector">
-            <div class="connector-dot"></div>
-          </div>
-          <div class="step-content">
-            <div class="step-badge">
-              <span class="step-number">02</span>
+            <div class="step-content">
+              <div class="step-badge">
+                <span class="step-number">01</span>
+              </div>
+              <h3>Discovery & Planning</h3>
+              <p>We analyze your needs, define project scope, and create a budget-friendly roadmap tailored to your goals.</p>
+              <ul class="step-features">
+                <li>Requirements gathering</li>
+                <li>Budget optimization</li>
+                <li>Timeline planning</li>
+              </ul>
             </div>
-            <h3>Design & Architecture</h3>
-            <p>Our designers create intuitive interfaces while architects build scalable foundations using proven frameworks.</p>
-            <ul class="step-features">
-              <li>UI/UX design</li>
-              <li>System architecture</li>
-              <li>Tech stack selection</li>
-            </ul>
-          </div>
-        </div>
+          </article>
 
-        <div class="timeline-step step-left">
-          <div class="step-content">
-            <div class="step-badge">
-              <span class="step-number">03</span>
+          <article class="timeline-step">
+            <div class="step-connector">
+              <div class="connector-dot"></div>
             </div>
-            <h3>Development & Testing</h3>
-            <p>Senior engineers write clean, maintainable code with automated tests to ensure quality at every stage.</p>
-            <ul class="step-features">
-              <li>Agile development</li>
-              <li>Code reviews</li>
-              <li>Quality assurance</li>
-            </ul>
-          </div>
-          <div class="step-connector">
-            <div class="connector-dot"></div>
-          </div>
-        </div>
+            <div class="step-content">
+              <div class="step-badge">
+                <span class="step-number">02</span>
+              </div>
+              <h3>Design & Architecture</h3>
+              <p>Our designers create intuitive interfaces while architects build scalable foundations using proven frameworks.</p>
+              <ul class="step-features">
+                <li>UI/UX design</li>
+                <li>System architecture</li>
+                <li>Tech stack selection</li>
+              </ul>
+            </div>
+          </article>
 
-        <div class="timeline-step step-right">
-          <div class="step-connector">
-            <div class="connector-dot"></div>
-          </div>
-          <div class="step-content">
-            <div class="step-badge">
-              <span class="step-number">04</span>
+          <article class="timeline-step">
+            <div class="step-connector">
+              <div class="connector-dot"></div>
             </div>
-            <h3>Launch & Support</h3>
-            <p>We handle deployment, monitor performance, and provide ongoing support to keep your product running smoothly.</p>
-            <ul class="step-features">
-              <li>Deployment automation</li>
-              <li>Performance monitoring</li>
-              <li>24/7 support available</li>
-            </ul>
-          </div>
+            <div class="step-content">
+              <div class="step-badge">
+                <span class="step-number">03</span>
+              </div>
+              <h3>Development & Testing</h3>
+              <p>Senior engineers write clean, maintainable code with automated tests to ensure quality at every stage.</p>
+              <ul class="step-features">
+                <li>Agile development</li>
+                <li>Code reviews</li>
+                <li>Quality assurance</li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="timeline-step">
+            <div class="step-connector">
+              <div class="connector-dot"></div>
+            </div>
+            <div class="step-content">
+              <div class="step-badge">
+                <span class="step-number">04</span>
+              </div>
+              <h3>Launch & Support</h3>
+              <p>We handle deployment, monitor performance, and provide ongoing support to keep your product running smoothly.</p>
+              <ul class="step-features">
+                <li>Deployment automation</li>
+                <li>Performance monitoring</li>
+                <li>24/7 support available</li>
+              </ul>
+            </div>
+          </article>
         </div>
       </div>
     </div>
@@ -87,17 +98,20 @@
 
 <style scoped>
 .scroll-reel {
-  padding: 8rem 0;
+  padding: clamp(3.25rem, 6vh, 5rem) 0 0;
   background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg) 100%);
   color: white;
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
 
-.reel-header {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 5rem;
+.process-layout {
+  overflow: hidden;
+}
+
+.process-intro {
+  max-width: 860px;
+  margin-bottom: clamp(1.25rem, 3vh, 2rem);
 }
 
 .section-kicker {
@@ -107,128 +121,169 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 1rem;
+  margin-bottom: 0.65rem;
 }
 
-.reel-header h2 {
-  font-size: clamp(2rem, 4vw, 2.75rem);
-  line-height: 1.2;
-  font-weight: 700;
+.process-intro h2 {
+  max-width: 780px;
+  font-size: clamp(2.15rem, 4.2vw, 3.95rem);
+  line-height: 1.04;
+  font-weight: 800;
   letter-spacing: -0.01em;
   color: white;
+  margin-bottom: 0.85rem;
 }
 
-/* Timeline Layout */
-.process-timeline {
+.process-intro p {
+  max-width: 560px;
+  color: var(--text-light);
+  font-size: 0.98rem;
+  line-height: 1.62;
+}
+
+.process-progress {
+  margin-top: clamp(1.3rem, 3vh, 2rem);
+  max-width: min(620px, 100%);
+}
+
+.progress-label {
+  display: block;
+  color: var(--text-lighter);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.55rem;
+}
+
+.progress-track {
+  display: block;
+  height: 0.5rem;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+}
+
+.process-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+
+.process-viewport {
   position: relative;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 2rem 0;
+  min-height: clamp(390px, 52vh, 560px);
+  overflow: visible;
+}
+
+.process-track {
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  width: max-content;
+  padding: 1.75rem 0 4rem;
+  will-change: transform;
 }
 
 .timeline-line {
   position: absolute;
-  left: 50%;
-  top: 0;
-  bottom: 0;
-  width: 3px;
-  background: linear-gradient(180deg,
-    transparent 0%,
-    var(--secondary) 10%,
-    var(--secondary) 90%,
-    transparent 100%);
-  transform: translateX(-50%);
-  opacity: 0.4;
+  left: 0;
+  right: 0;
+  top: 2.35rem;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--secondary) 12%, var(--secondary) 88%, transparent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  opacity: 0.55;
 }
 
 .timeline-step {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  gap: 2rem;
-  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  width: clamp(300px, 42vw, 520px);
+  min-height: clamp(330px, 44vh, 430px);
   position: relative;
+  flex: 0 0 auto;
 }
 
-.timeline-step:last-child {
-  margin-bottom: 0;
+.step-connector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.85rem;
 }
 
-/* Left-aligned steps */
-.step-left .step-content {
-  grid-column: 1;
-  text-align: right;
+.connector-dot {
+  width: 20px;
+  height: 20px;
+  background: var(--secondary);
+  border: 4px solid var(--bg-dark);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(201, 198, 80, 0.2);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 
-.step-left .step-connector {
-  grid-column: 2;
-}
-
-.step-left .step-content::after {
-  content: none;
-}
-
-/* Right-aligned steps */
-.step-right .step-connector {
-  grid-column: 2;
-}
-
-.step-right .step-content {
-  grid-column: 3;
-  text-align: left;
-}
-
-/* Step Content */
 .step-content {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 1rem;
-  padding: 2rem;
+  padding: clamp(1.3rem, 2.35vw, 2rem);
   position: relative;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  min-height: clamp(260px, 34vh, 330px);
+  opacity: 0.62;
+  transform: translateY(18px) scale(0.975);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+  will-change: transform, opacity;
 }
 
-.step-content:hover {
-  transform: scale(1.02);
+.timeline-step.is-active .step-content {
   border-color: var(--secondary);
-  box-shadow: 0 12px 40px rgba(201, 198, 80, 0.15);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32), 0 0 34px rgba(201, 198, 80, 0.12);
   background: var(--bg-dark-green);
+}
+
+.timeline-step.is-active .connector-dot {
+  transform: scale(1.35);
+  box-shadow: 0 0 0 8px rgba(201, 198, 80, 0.26);
 }
 
 .step-badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   border-radius: 50%;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
   box-shadow: 0 4px 16px rgba(201, 198, 80, 0.3);
-  transition: all 0.3s ease;
-}
-
-.step-content:hover .step-badge {
-  transform: rotate(360deg) scale(1.1);
 }
 
 .step-number {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: white;
 }
 
 .step-content h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 650;
   margin-bottom: 0.75rem;
   color: white;
 }
 
 .step-content p {
-  font-size: 0.9375rem;
-  line-height: 1.7;
+  font-size: 0.9rem;
+  line-height: 1.58;
   color: var(--text-light);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .step-features {
@@ -238,10 +293,9 @@
 }
 
 .step-features li {
-  font-size: 0.875rem;
+  font-size: 0.82rem;
   color: var(--secondary);
-  padding: 0.375rem 0;
-  padding-left: 1.5rem;
+  padding: 0.25rem 0 0.25rem 1.25rem;
   position: relative;
 }
 
@@ -253,82 +307,95 @@
   font-weight: 700;
 }
 
-/* Connector Dots */
-.step-connector {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.connector-dot {
-  width: 20px;
-  height: 20px;
-  background: var(--secondary);
-  border: 4px solid var(--bg-dark);
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(201, 198, 80, 0.2);
-  transition: all 0.3s ease;
-  position: relative;
-  z-index: 2;
-}
-
-.timeline-step:hover .connector-dot {
-  transform: scale(1.4);
-  box-shadow: 0 0 0 8px rgba(201, 198, 80, 0.3);
-}
-
-/* Mobile Responsive */
 @media (max-width: 968px) {
-  .timeline-line {
-    left: 2rem;
+  .scroll-reel {
+    padding: 4.5rem 0 0;
+  }
+
+  .process-viewport {
+    min-height: auto;
+  }
+
+  .process-track {
+    display: grid;
+    gap: 1rem;
+    width: auto;
+    padding: 0 0 3.5rem;
+    transform: none !important;
+    will-change: auto;
   }
 
   .timeline-step {
-    grid-template-columns: auto 1fr;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
+    width: auto;
+    min-height: auto;
   }
 
-  .step-left .step-content,
-  .step-right .step-content {
-    grid-column: 2;
-    text-align: left;
+  .timeline-line {
+    display: none;
   }
 
-  .step-left .step-connector,
-  .step-right .step-connector {
-    grid-column: 1;
-  }
-
-  .step-right {
-    grid-template-columns: auto 1fr;
+  .process-progress-fill {
+    transform: scaleX(1);
   }
 
   .step-content {
-    padding: 1.5rem;
+    min-height: auto;
+    opacity: 1;
+    transform: none;
+    will-change: auto;
   }
 }
 
 @media (max-width: 640px) {
   .scroll-reel {
-    padding: 5rem 0;
+    padding-top: 4.25rem;
   }
 
-  .reel-header {
-    margin-bottom: 3rem;
+  .process-intro {
+    margin-bottom: 1.25rem;
   }
 
-  .timeline-line {
-    left: 1.5rem;
+  .process-intro h2 {
+    font-size: 2rem;
+    line-height: 1.12;
   }
 
-  .timeline-step {
-    gap: 1rem;
+  .process-intro p {
+    font-size: 0.95rem;
   }
 
-  .step-content h3 {
-    font-size: 1.25rem;
+  .process-progress {
+    margin-top: 1rem;
+  }
+
+  .progress-track {
+    height: 0.4rem;
+  }
+
+  .step-content {
+    padding: 1.35rem;
+    border-radius: 0.75rem;
+  }
+
+  .step-connector {
+    width: 2rem;
+    height: 2rem;
+    margin-bottom: 0.55rem;
+  }
+
+  .connector-dot {
+    width: 16px;
+    height: 16px;
+  }
+
+  .step-badge {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 0.8rem;
+  }
+
+  .step-number {
+    font-size: 1.05rem;
   }
 }
 </style>

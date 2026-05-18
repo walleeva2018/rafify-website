@@ -293,6 +293,57 @@
 @media (max-width: 968px) {
   .industries-content {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .industries {
+    padding: 4.5rem 0;
+  }
+
+  .industries-text h2 {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  .pricing-highlight,
+  .tech-stack {
+    padding: 1.2rem;
+    border-radius: 0.75rem;
+  }
+
+  .pricing-badge {
+    display: block;
+  }
+
+  .pricing-amount {
+    display: block;
+    font-size: 2rem;
+    margin-top: 0.25rem;
+  }
+
+  .features-list {
+    gap: 1rem;
+  }
+
+  .btn-primary-solid {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .tech-category {
+    margin-bottom: 1.4rem;
+  }
+
+  .tech-badge {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.8rem;
   }
 }
 </style>

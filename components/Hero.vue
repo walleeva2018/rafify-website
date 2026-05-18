@@ -351,12 +351,19 @@
 }
 
 @media (max-width: 968px) {
+  .hero {
+    min-height: auto;
+    padding: 7rem 0 4rem;
+    align-items: flex-start;
+  }
+
   .hero .container {
     grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
 
   .media-composition {
-    min-height: 520px;
+    min-height: 300px;
   }
 
   .title {
@@ -365,16 +372,65 @@
 }
 
 @media (max-width: 640px) {
+  .hero {
+    padding: 5.75rem 0 3.5rem;
+  }
+
   .title {
-    font-size: 1.875rem;
+    font-size: clamp(2rem, 11vw, 2.75rem);
+    line-height: 1.08;
+    margin-bottom: 1rem;
   }
 
   .subtitle {
     font-size: 1rem;
+    margin-bottom: 1.35rem;
+    line-height: 1.6;
+  }
+
+  .badge {
+    margin-bottom: 1rem;
+    font-size: 0.78rem;
+  }
+
+  .value-prop {
+    gap: 0.55rem;
+    margin-bottom: 1.6rem;
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .value-highlight {
+    width: 100%;
+    font-size: 0.92rem;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-bottom: 1.75rem;
+    text-align: left;
+  }
+
+  .stat-item {
+    text-align: left;
+  }
+
+  .stat-number {
+    font-size: 1.55rem;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.02em;
   }
 
   .cta-buttons {
     flex-direction: column;
+    margin-bottom: 0;
   }
 
   .btn {
@@ -383,7 +439,11 @@
   }
 
   .media-composition {
-    min-height: 430px;
+    min-height: 0;
+  }
+
+  .hero-visual {
+    display: none;
   }
 }
 

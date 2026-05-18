@@ -148,8 +148,42 @@
 }
 
 @media (max-width: 640px) {
+  .testimonials {
+    padding: 4.5rem 0;
+  }
+
+  .section-header {
+    text-align: left;
+    margin-bottom: 2rem;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    line-height: 1.12;
+  }
+
+  .section-header p {
+    font-size: 1rem;
+  }
+
   .testimonials-grid {
     grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .testimonial-card {
+    padding: 1.35rem;
+    border-radius: 0.75rem;
+    transform: none !important;
+  }
+
+  .testimonial-card::after {
+    display: none;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 }
 </style>
